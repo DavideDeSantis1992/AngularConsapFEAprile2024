@@ -25,10 +25,7 @@ import { IspezionaComponent } from './componenti/ispeziona/ispeziona.component';
 import { BreadcrumbsispezionaComponent } from './componenti/ispeziona/breadcrumbsispeziona/breadcrumbsispeziona.component';
 import { ModificaComponent } from './componenti/modifica/modifica.component';
 import { BreadcrumbsmodificaComponent } from './componenti/modifica/breadcrumbsmodifica/breadcrumbsmodifica.component';
-import { StoricoComponent } from './componenti/storico/storico.component';
-import { BreadcrumbsstoricoComponent } from './componenti/storico/breadcrumbsstorico/breadcrumbsstorico.component';
-import { IspezionastoricoComponent } from './componenti/ispezionastorico/ispezionastorico.component';
-import { BreadcrumbsispezionastoricoComponent } from './componenti/ispezionastorico/breadcrumbsispezionastorico/breadcrumbsispezionastorico.component';
+
 
 
 @NgModule({
@@ -48,11 +45,7 @@ import { BreadcrumbsispezionastoricoComponent } from './componenti/ispezionastor
     IspezionaComponent,
     BreadcrumbsispezionaComponent,
     ModificaComponent,
-    BreadcrumbsmodificaComponent,
-    StoricoComponent,
-    BreadcrumbsstoricoComponent,
-    IspezionastoricoComponent,
-    BreadcrumbsispezionastoricoComponent
+    BreadcrumbsmodificaComponent
   ],
   imports: [
     BrowserModule,
