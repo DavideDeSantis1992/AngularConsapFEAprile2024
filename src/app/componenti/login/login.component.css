@@ -1,0 +1,25 @@
+.containers {
+    background-color: rgba(4, 48, 4, 0.347); /* Colore verde scuro con trasparenza al 50% */
+    
+    padding: 30px; /* Spazio interno per migliorare la leggibilità */
+    width: 100%; /* Occupa tutta l'ampiezza orizzontale */
+    box-sizing: border-box; /* Il padding è incluso nella larghezza e nell'altezza */
+}
+
+.text-center{
+    text-align: center;
+}
+
+  .form-group{
+    display: flex;
+    width: 50%;
+    margin-left: 25%;
+  }
+  
+  .input-label svg {
+    margin-right: 8px; /* Regola la distanza tra l'icona e il testo del label */
+  }
+
+ 
+  
+  

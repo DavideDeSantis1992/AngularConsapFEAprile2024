@@ -1,0 +1,118 @@
+<app-headeraccesso></app-headeraccesso>
+
+<app-breadcrumbsmodifica></app-breadcrumbsmodifica>
+<section class="it-hero-wrapper it-dark it-overlay">
+    <!-- Immagine sfondo-->
+    <div class="img-responsive-wrapper">
+        <div class="img-responsive">
+            <div class="img-wrapper">
+                <img src="https://i.pinimg.com/736x/35/d6/99/35d6995038a7b36fb863419c91517e33.jpg"
+                    title="titolo immagine" alt="descrizione immagine">
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenuto -->
+    <div class="container text-white">
+        <!-- Prima Riga -->
+        <div class="row">
+            <div class="col-md-3">
+                <label for="numeroTicket">Numero Ticket</label>
+                <input type="text" class="form-control" id="numeroTicket" readonly>
+            </div>
+            <div class="col-md-6">
+                <label for="oggetto">Oggetto</label>
+                <input type="text" class="form-control" id="oggetto" readonly>
+            </div>
+            <div class="col-md-3">
+                <label for="applicativo">Applicativo</label>
+                <input type="text" class="form-control" id="applicativo" readonly>
+            </div>
+        </div>
+        <!-- 2a Riga -->
+        <div class="row">
+            <div class="col-md-3">
+                <label for="statoRichiestaConsap">Stato Richiesta CONSAP</label>
+                <select id="statoRichiestaConsap" class="form-control custom-select">
+                    <option selected disabled>Scegli stato</option>
+                    <option value="Value 1">Opzione 1</option>
+                    <option value="Value 2">Opzione 2</option>
+                    <option value="Value 3">Opzione 3</option>
+                    <option value="Value 4">Opzione 4</option>
+                    <option value="Value 5">Opzione 5</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="statoRichiestaOs">Stato Richiesta OS</label>
+                <select id="statoRichiestaOs" class="form-control custom-select">
+                    <option selected disabled>Scegli stato</option>
+                    <option value="Value 1">Opzione 1</option>
+                    <option value="Value 2">Opzione 2</option>
+                    <option value="Value 3">Opzione 3</option>
+                    <option value="Value 4">Opzione 4</option>
+                    <option value="Value 5">Opzione 5</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="statoApprovazioneConsap">Stato Approvazione CONSAP</label>
+                <select id="statoApprovazioneConsap" class="form-control custom-select">
+                    <option selected disabled>Scegli stato</option>
+                    <option value="Value 1">Opzione 1</option>
+                    <option value="Value 2">Opzione 2</option>
+                    <option value="Value 3">Opzione 3</option>
+                    <option value="Value 4">Opzione 4</option>
+                    <option value="Value 5">Opzione 5</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="statoApprovazioneOs">Stato Richiesta OS</label>
+                <select id="statoApprovazioneOs" class="form-control custom-select">
+                    <option selected disabled>Scegli stato</option>
+                    <option value="Value 1">Opzione 1</option>
+                    <option value="Value 2">Opzione 2</option>
+                    <option value="Value 3">Opzione 3</option>
+                    <option value="Value 4">Opzione 4</option>
+                    <option value="Value 5">Opzione 5</option>
+                </select>
+            </div>
+        </div>
+        <!-- 3a Riga -->
+        
+        <div class="row">
+            <div class="col-md-3">
+                <label for="dataCreazione">Data Creazione</label>
+                <input type="date" class="form-control" id="dataCreazione" readonly>
+            </div>
+            <div class="col-md-3">
+                <label for="dataStimaFinale">Data Stima Fine</label>
+                <input type="date" class="form-control" id="dataStimaFinale">
+            </div>
+            <div class="col-md-3">
+                <label for="commessaOs">Commessa OS</label>
+                <select id="commessaOs" class="form-control custom-select">
+                    <option selected disabled>Scegli commessa</option>
+                    <option value="Value 1">Opzione 1</option>
+                    <option value="Value 2">Opzione 2</option>
+                    <option value="Value 3">Opzione 3</option>
+                    <option value="Value 4">Opzione 4</option>
+                    <option value="Value 5">Opzione 5</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="importo">Importo</label>
+                <input type="text" class="form-control" id="importo" placeholder="Inserisci importo">
+            </div>
+        </div>
+        <br>
+        <div class="btn-container">
+            <div class="btn-example">
+              <button type="button" class="btn btn-primary disabled">Modifca</button>
+            </div>
+            <div class="btn-example">
+              <button type="button" class="btn btn-secondary">Ripristina</button>
+            </div>
+        </div>
+          
+    </div>
+</section>
+

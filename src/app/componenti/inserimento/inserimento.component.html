@@ -1,0 +1,156 @@
+<app-headeraccesso></app-headeraccesso>
+
+<app-breadcrumbsinserimento></app-breadcrumbsinserimento>
+<section class="it-hero-wrapper it-dark it-overlay">
+    <!-- Immagine sfondo-->
+    <div class="img-responsive-wrapper">
+        <div class="img-responsive">
+            <div class="img-wrapper">
+                <img src="https://i.pinimg.com/736x/35/d6/99/35d6995038a7b36fb863419c91517e33.jpg"
+                    title="titolo immagine" alt="descrizione immagine">
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenuto -->
+    <div class="container text-white">
+        <!-- Prima Riga -->
+        <div class="row">
+            <div class="col-md-3">
+                <label for="numeroTicket">Numero Ticket</label>
+                <input type="text" class="form-control" id="numeroTicket" placeholder="Inserisci numero ticket"
+                    maxlength="5" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+            </div>
+            <div class="col-md-6">
+                <label for="oggetto">Oggetto</label>
+                <input type="text" class="form-control" id="oggetto" placeholder="Inserisci oggetto">
+            </div>
+            <div class="col-md-3">
+                <label for="applicativo">Applicativo</label>
+                <select id="applicativo" class="form-control custom-select">
+                    <option disabled selected hidden value="">- Selezione Applicativo -</option>
+                <ng-container *ngFor="let app of applicativo">
+                  <option value="{{app.applicativoId}}">
+                    {{ app.descApplicativo }}
+                  </option>
+                </ng-container>
+                </select>
+            </div>
+
+        </div>
+        <!-- 2a Riga -->
+        <div class="row">
+            <div class="col-md-3">
+                <label for="statoRichiestaConsap">Stato Richiesta CONSAP</label>
+                <select id="statoRichiestaConsap" class="form-control custom-select">
+                    <option disabled selected hidden value="">- Selezione Stato Ric. CONSAP -</option>
+                    <option *ngIf="statoRichiestaConsap && statoRichiestaConsap.length > 0"
+                        [value]="statoRichiestaConsap[0].statoRichiestaConsapId">
+                        {{ statoRichiestaConsap[0].descStatoRichiestaConsap }}
+                    </option>
+
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="statoRichiestaOs">Stato Richiesta OS</label>
+                <select id="statoRichiestaOs" class="form-control custom-select">
+                    <option disabled selected hidden value="">- Selezione Stato Ric. OS -</option>
+                    <option *ngIf="statoRichiestaOs && statoRichiestaOs.length > 0"
+                        [value]="statoRichiestaOs[0].statoRichiestaOsId">
+                        {{ statoRichiestaOs[0].descStatoRichiestaOs }}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="statoApprovazioneConsap">Stato Approvazione CONSAP</label>
+                <select id="statoApprovazioneConsap" class="form-control custom-select">
+                    <option disabled selected hidden value="">- Selezione Stato Ric. CONSAP -</option>
+                    <option *ngIf="statoApprovazioneConsap && statoApprovazioneConsap.length > 0"
+                        [value]="statoApprovazioneConsap[0].statoApprovazioneConsapId">
+                        {{ statoApprovazioneConsap[0].descStatoApprovazioneConsap }}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="statoApprovazioneOs">Stato Approvazione OS</label>
+                <select id="statoApprovazioneOs" class="form-control custom-select">
+                    <option disabled selected hidden value="">- Selezione Stato App. OS -</option>
+                    <option *ngIf="statoApprovazioneOs && statoApprovazioneOs.length > 0"
+                        [value]="statoApprovazioneOs[0].statoApprovazioneOsId">
+                        {{ statoApprovazioneOs[0].descStatoApprovazioneOs }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <!-- 3a Riga -->
+        <div class="row">
+            <div class="col-md-3">
+                <label for="dataCreazione">Data Creazione</label>
+                <input type="date" class="form-control" id="dataCreazione">
+            </div>
+            <div class="col-md-3">
+                <label for="dataStimaFinale">Data Stima Fine</label>
+                <input type="date" class="form-control" id="dataStimaFinale">
+            </div>
+            <div class="col-md-3">
+                <label for="commessaOs">Commessa OS</label>
+                <select id="commessaOs" class="form-control custom-select">
+                    <option disabled selected hidden value=""> - Commessa OS -</option>
+                <ng-container *ngFor="let com of commessaOs">
+                  <option value="{{com.commessaOsId}}">
+                    {{ com.codiceCommessaOs }} - {{ com.descCommessaOs }}
+                  </option>
+                </ng-container>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="importo">Importo</label>
+                <input type="text" class="form-control" id="importo" placeholder="Inserisci importo"
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '')">
+            </div>
+        </div>
+        <br>
+        <div class="btn-example">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#exampleModal" (click)="openSalva()">Salva</button>
+
+            <!-- Modal Salvataggio-->
+            <div class="modal fade" tabindex="-1" role="dialog" id="modalSalvataggio" aria-labelledby="exampleModalTitle">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title h5 " id="exampleModalTitle">Inserimento Richiesta</h2>
+                        </div>
+                        <div class="modal-body">
+                            <p>Sei sicuro di voler inserire i dati ?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary btn-sm" data-bs-dismiss="modal" type="button" (click)="closeSalva()">Annulla</button>
+                            <button class="btn btn-primary btn-sm" data-bs-dismiss="modal" type="button" (click)="openConferma();creaRichiesta()">Conferma</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Conferma-->
+            <div class="modal fade" tabindex="-1" role="dialog" id="modalConferma" aria-labelledby="exampleModalTitle">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title h5 " id="exampleModalTitle">Operazione conclusa</h2>
+                        </div>
+                        <div class="modal-body">
+                            <p>Dati salvati con successo</p>
+                            <p>Vuoi continuare o tornare alla lista ?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary btn-sm" data-bs-dismiss="modal" type="button" (click)="closeConferma()">Ritorna</button>
+                            <button class="btn btn-primary btn-sm" data-bs-dismiss="modal" type="button" [routerLink]="'/elenco'">Elenco</button>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,10 @@
+.sfondo {
+    background-color: rgb(28, 81, 41);
+    padding: 1px; /* Aggiungi spaziatura interna per la leggibilità */
+  }
+
+  .breadcrumb.text-white .breadcrumb-item,
+  .breadcrumb.text-white .breadcrumb-item.active {
+    color: white !important;
+  }
+  

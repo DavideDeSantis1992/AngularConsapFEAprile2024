@@ -1,0 +1,198 @@
+<app-headeraccesso></app-headeraccesso>
+<app-breadcrumbselenco></app-breadcrumbselenco>
+<div *ngIf="!loading || !showSpinner">
+  <section class="it-hero-wrapper it-dark it-overlay">
+    <!-- Immagine -->
+    <div class="img-responsive-wrapper">
+      <div class="img-responsive">
+        <div class="img-wrapper">
+          <img src="https://i.pinimg.com/736x/35/d6/99/35d6995038a7b36fb863419c91517e33.jpg" title="titolo immagine" alt="descrizione immagine">
+        </div>
+      </div>
+    </div>
+    <!-- Testo -->
+    <div class="container">
+      <div class="btn-container">
+        
+        <button class="btn btn-primary" type="button" (click)="openModal()">Filtri ></button>
+        
+        <div class="modal fade" id="modalright" tabindex="-1" role="dialog" aria-labelledby="modalrightTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-right" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2 class="modal-title h5 " id="modalrightTitle">Filtra:</h2>
+                <button class="btn-close" type="button" (click)="closeModal()" aria-label="Chiudi finestra modale">
+                  <svg class="icon"><use href="#it-close"></use></svg>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="container">
+                  
+                  <div class="row">
+                    <div class="col-12">
+                      <label class="scrittaVerde" for="numeroTicketFiltro">Numero Ticket</label>
+                      <input type="text" class="form-control" id="numeroTicketFiltro" placeholder="Inserisci numero ticket" maxlength="5" 
+                             oninput="if (!this.value.trim()) { this.value = null; } else { this.value = this.value.replace(/[^0-9]/g, ''); }">
+                  </div>
+                  
+                  </div>
+                  <br>
+                  
+                  <div class="row">
+                    <div class="col-6">
+                      <label class="scrittaVerde" for="oggettoFiltro">Oggetto</label>
+                      <input type="text" class="form-control" id="oggettoFiltro" placeholder="Inserisci oggetto" 
+                             oninput="if (!this.value.trim()) { this.value = null; }">
+                  </div>
+                  
+
+                    <div class="col-6">
+                      <label class="scrittaVerde" for="applicativoFiltro">Applicativo</label>
+                      <select id="applicativoFiltro" class="form-control custom-select">
+                        
+                        <option value="null">Tutti</option>
+                    <ng-container *ngFor="let app of applicativo">
+                      <option value="{{app.applicativoId}}">
+                        {{ app.descApplicativo }}
+                      </option>
+                    </ng-container>
+                    </select>
+                    </div>
+                  </div>
+                  <br>
+                  
+                  <div class="row">
+                    <div class="col-6">
+                      <label class="scrittaVerde" for="statoRichiestaConsapFiltro">Stato Richiesta CONSAP</label>
+                      <select id="statoRichiestaConsapFiltro" class="form-control custom-select"
+                      >
+                        
+                        <option value="null">Tutti</option>
+                    <ng-container *ngFor="let ric of statoRichiestaConsap">
+                      <option value="{{ric.statoRichiestaConsapId}}">
+                        {{ ric.descStatoRichiestaConsap }}
+                      </option>
+                    </ng-container>
+                    </select>
+                    </div>
+
+                    <div class="col-6">
+                      <label class="scrittaVerde" for="statoRichiestaOsFiltro">Stato Richiesta OS</label>
+                      <select id="statoRichiestaOsFiltro" class="form-control custom-select"
+                      >
+                        
+                        <option value="null">Tutti</option>
+                    <ng-container *ngFor="let ric of statoRichiestaOs">
+                      <option value="{{ric.statoRichiestaOsId}}">
+                        {{ ric.descStatoRichiestaOs }}
+                      </option>
+                    </ng-container>
+                    </select>
+                    </div>
+                  </div>
+                  <br>
+                  
+                  <div class="row">
+
+                    <div class="col-6">
+                      <label class="scrittaVerde" for="statoApprovazioneConsapFiltro">Stato Approvazione CONSAP</label>
+                      <select id="statoApprovazioneConsapFiltro" class="form-control custom-select"
+                      >
+                        
+                        <option value="null">Tutti</option>
+                    <ng-container *ngFor="let ric of statoApprovazioneConsap">
+                      <option value="{{ric.statoApprovazioneConsapId}}">
+                        {{ ric.descStatoApprovazioneConsap }}
+                      </option>
+                    </ng-container>
+                    </select>
+                    </div>
+
+                    <div class="col-6">
+                      <label class="scrittaVerde" for="statoApprovazioneOsFiltro">Stato Approvazione OS</label>
+                      <select id="statoApprovazioneOsFiltro" class="form-control custom-select"
+                      >
+                        
+                        <option value="null">Tutti</option>
+                    <ng-container *ngFor="let ric of statoApprovazioneOs">
+                      <option value="{{ric.statoApprovazioneOsId}}">
+                        {{ ric.descStatoApprovazioneOs }}
+                      </option>
+                    </ng-container>
+                    </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-primary btn-sm" type="button" (click)="closeModal()">Annulla</button>
+                <button class="btn btn-primary btn-sm" type="button" (click)="applicaFiltri()">Applica</button>
+                <button class="btn btn-primary btn-sm" type="button" (click)="resetFiltri()">Ripristina</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div> 
+    <!-- fine filtri -->
+    <br>
+    <table class="table table-success table-borderless">
+      <thead>
+        <tr class="argomento">
+          <th scope="col">Numero Ticket</th>
+          <th scope="col">Oggetto</th>
+          <th scope="col">Applicativo</th>
+          <th scope="col">Data Creazione</th>
+          <th scope="col">Gestione Richiesta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ric of richieste">
+          <td *ngIf="ric?.numeroTicket !== null">{{ric.numeroTicket}}</td>
+          <td>{{ric.oggetto}}</td>
+          <td>{{ric.applicativo.descApplicativo}}</td>
+          <td>{{ric.dataCreazione}}</td>
+          <td>
+            <a href="/ispeziona" style="margin-right: 25px;" (click)="prendiId(ric)">
+              <svg class="icon icon-sm icon-secondary align-top me-1" aria-hidden="true">
+                <use href="#it-zoom-in" fill="black"></use>
+              </svg>
+            </a>
+          
+            <a href="/modifica" style="margin-right: 25px;">
+              <svg class="icon icon-sm icon-secondary align-top me-1" aria-hidden="true">
+                <use href="#it-pencil" fill="black"></use>
+              </svg>
+            </a>
+          
+            
+          </td>
+          
+            
+          
+        </tr>
+        
+      </tbody>
+    </table>
+    <div class="btn-container">
+      <div class="btn-example">
+        <button type="button" class="btn btn-secondary">Stampa</button>
+      </div>
+
+
+
+    </div>
+  </div>
+  </section>
+
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-6 col-lg-3 mt-3 mt-lg-0" *ngIf="loading">
+      <p class="mb-3"><strong>Sto caricando le richieste...</strong></p>
+      <div class="progress-spinner progress-spinner-active size-xl">
+        <span class="visually-hidden">Sto preparando i dati...</span>
+      </div>
+    </div>
+  </div>
+</div>
+

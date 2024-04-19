@@ -1,0 +1,47 @@
+.it-hero-wrapper {
+    position: relative;
+    background-image: url('https://i.pinimg.com/736x/35/d6/99/35d6995038a7b36fb863419c91517e33.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 300px; /* Regola l'altezza dell'elemento secondo necessità */
+  }
+  
+  .img-responsive-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+  
+  .container {
+    background-color: rgba(17, 33, 17, 0.498);
+    padding: 20px; /* Aggiungi spaziatura interna per la leggibilità */
+  }
+  
+  label{
+    color: white;
+  }
+
+  .btn-container {
+    display: flex;
+  }
+  
+  .btn-example {
+    margin-right: 10px; /* Aggiungi spaziatura tra i bottoni, se necessario */
+  }
+  
+  
+  
+  .btn-secondary {
+    background-color: #ffffff; /* Colore di sfondo per il bottone Ripristina */
+    color: #28a745; /* Colore del testo per il bottone Ripristina */
+    border-color: #28a745; /* Colore del bordo per il bottone Ripristina */
+  }
+  
+  .btn-secondary:hover {
+    background-color: #f8f9fa; /* Cambia il colore di sfondo al passaggio del mouse */
+  }
+  
+  

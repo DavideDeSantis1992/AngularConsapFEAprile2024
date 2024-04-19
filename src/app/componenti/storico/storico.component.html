@@ -1,0 +1,61 @@
+<app-headeraccesso></app-headeraccesso>
+<app-breadcrumbsstorico></app-breadcrumbsstorico>
+
+<div *ngIf="!loading || !showSpinner">
+<section class="it-hero-wrapper it-dark it-overlay">
+    <!-- Immagine -->
+    <div class="img-responsive-wrapper">
+        <div class="img-responsive">
+            <div class="img-wrapper">
+                <img src="https://i.pinimg.com/736x/35/d6/99/35d6995038a7b36fb863419c91517e33.jpg"
+                    title="titolo immagine" alt="descrizione immagine">
+            </div>
+        </div>
+    </div>
+
+    <!-- Testo -->
+    <div class="container">
+        <table class="table table-success table-borderless">
+            <thead>
+                <tr class="argomento">
+                    <th scope="col">Numero Ticket</th>
+                    <th scope="col">Oggetto</th>
+                    <th scope="col">Applicativo</th>
+                    <th scope="col">Data Creazione</th>
+                    <th scope="col">Gestione Richiesta</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">1</td>
+                    <td>Alessandro</td>
+                    <td>Rossi</td>
+                    <td>alessandro.rossi</td>
+                    <td>
+                        <a href="/ispezionastorico" style="margin-right: 25px;">
+                            <svg class="icon icon-sm icon-secondary align-top me-1" aria-hidden="true">
+                                <use href="#it-zoom-in" fill="black"></use>
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="btn-container">
+            <div class="btn-example">
+                <button type="button" class="btn btn-secondary">Stampa</button>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+<div class="container">
+    <div class="row">
+      <div class="col-6 col-lg-3 mt-3 mt-lg-0" *ngIf="loading">
+        <p class="mb-3"><strong>Sto caricando lo storico della richiesta...</strong></p>
+        <div class="progress-spinner progress-spinner-active size-xl">
+          <span class="visually-hidden">Sto preparando i dati...</span>
+        </div>
+      </div>
+    </div>
+  </div>
