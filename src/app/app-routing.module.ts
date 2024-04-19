@@ -9,8 +9,6 @@ import { ElencoComponent } from './componenti/elenco/elenco.component';
 import { InserimentoComponent } from './componenti/inserimento/inserimento.component';
 import { IspezionaComponent } from './componenti/ispeziona/ispeziona.component';
 import { ModificaComponent } from './componenti/modifica/modifica.component';
-import { StoricoComponent } from './componenti/storico/storico.component';
-import { IspezionastoricoComponent } from './componenti/ispezionastorico/ispezionastorico.component';
 import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
@@ -34,12 +32,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'modifica', component: ModificaComponent, canActivate: [AuthGuard] },
-  { path: 'storico', component: StoricoComponent, canActivate: [AuthGuard] },
-  {
-    path: 'ispezionastorico',
-    component: IspezionastoricoComponent,
-    canActivate: [AuthGuard],
-  },
+  
 ];
 
 @NgModule({
