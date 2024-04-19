@@ -10,6 +10,7 @@
         </div>
       </div>
     </div>
+    
     <!-- Testo -->
     <div class="container">
       <div class="btn-container">
@@ -150,7 +151,7 @@
           <td *ngIf="ric?.numeroTicket !== null">{{ric.numeroTicket}}</td>
           <td>{{ric.oggetto}}</td>
           <td>{{ric.applicativo.descApplicativo}}</td>
-          <td>{{ric.dataCreazione}}</td>
+          <td>{{ric.dataCreazione | date:'dd-MM-yyyy'}}</td>
           <td>
             <a href="/ispeziona" style="margin-right: 25px;" (click)="prendiId(ric)">
               <svg class="icon icon-sm icon-secondary align-top me-1" aria-hidden="true">
@@ -173,25 +174,84 @@
         
       </tbody>
     </table>
-    <div class="btn-container">
+
+    <nav class="pagination-wrapper paginazione" aria-label="Esempio di navigazione con page changer">
+      
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link" href="#">
+            <svg class="icon icon-primary"><use href="#it-chevron-left"></use></svg>
+            <span class="visually-hidden">Pagina precedente</span>
+          </a>
+        </li>
+        <li class="page-item"><a class="page-link testoNero" href="#">1</a></li>
+        <li class="page-item"><span class="page-link testoNero">...</span></li>
+        <li class="page-item"><a class="page-link testoNero" href="#">24</a></li>
+        <li class="page-item"><a class="page-link testoNero" href="#">25</a></li>
+        <li class="page-item active">
+          <a class="page-link" href="#" aria-current="page">
+            <span class="d-inline-block d-sm-none testoNero">Pagina </span>26
+          </a>
+        </li>
+        <li class="page-item"><a class="page-link testoNero" href="#">27</a></li>
+        <li class="page-item"><a class="page-link testoNero" href="#">28</a></li>
+        <li class="page-item"><span class="page-link testoNero">...</span></li>
+        <li class="page-item"><a class="page-link testoNero" href="#">50</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#">
+            <span class="visually-hidden">Pagina successiva</span>
+            <svg class="icon icon-primary"><use href="#it-chevron-right"></use></svg>
+          </a>
+        </li>
+      </ul>
+
+      <div class="dropdown">
+        <button class="btn btn-dropdown dropdown-toggle testoNero" type="button"  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Salta alla pagina" (click)="apriChiudiDropdown()">
+          {{paginaSelezionata}}
+          <svg class="icon icon-primary icon-sm"><use href="#it-expand"></use></svg>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="pagerChanger" id="pagerChanger">
+          <div class="link-list-wrapper">
+            <ul class="link-list testoNero">
+              <li><a class="list-item active cursore" aria-current="page" value="2" (click)="prendiValorePagina($event)"><span>2/pagina</span></a></li>
+              <li><a class="list-item active cursore" aria-current="page" value="5" (click)="prendiValorePagina($event)"><span>5/pagina</span></a></li>
+              <li><a class="list-item active cursore" aria-current="page" value="10" (click)="prendiValorePagina($event)"><span>10/pagina</span></a></li>
+
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    
+    <br>
+    <div class="btn-container ">
       <div class="btn-example">
         <button type="button" class="btn btn-secondary">Stampa</button>
       </div>
+
+      
 
 
 
     </div>
   </div>
-  </section>
+  
+</section>
 
 </div>
-<div class="container">
+
+<!-- Spinner -->
+<div class="container centrato">
   <div class="row">
-    <div class="col-6 col-lg-3 mt-3 mt-lg-0" *ngIf="loading">
+    <div class="col-12 col-lg-12 mt-3 mt-lg-0" *ngIf="loading">
+      <br>
       <p class="mb-3"><strong>Sto caricando le richieste...</strong></p>
+      <br>
       <div class="progress-spinner progress-spinner-active size-xl">
         <span class="visually-hidden">Sto preparando i dati...</span>
       </div>
+      <br>
     </div>
   </div>
 </div>

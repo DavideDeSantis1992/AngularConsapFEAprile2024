@@ -111,7 +111,7 @@
             <td *ngIf="storia?.numeroTicket !== null">{{storia.numeroTicket}}</td>
             <td>{{storia.oggetto}}</td>
             <td>{{storia.applicativo.descApplicativo}}</td>
-            <td>{{storia.dataInserimento}}</td>
+            <td>{{ storia.dataInserimento | date:'dd-MM-yyyy - HH:mm' }}</td>
             <td>
                 <a style="margin-right: 25px;" (click)="visualizzaRichiestaStorica(storia)">
                     <svg class="icon icon-sm icon-secondary align-top me-1" aria-hidden="true" style="cursor: pointer;">

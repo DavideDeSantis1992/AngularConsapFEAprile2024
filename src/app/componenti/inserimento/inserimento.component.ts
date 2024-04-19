@@ -17,6 +17,7 @@ import { Router } from 'express';
   styleUrl: './inserimento.component.css',
 })
 export class InserimentoComponent implements OnInit {
+  
   richieste!: richiestaAttualeArr[];
 
   applicativo!: Applicativo[];
@@ -81,12 +82,43 @@ export class InserimentoComponent implements OnInit {
   }
 
   openSalva() {
-    const modal = document.getElementById('modalSalvataggio');
-    if (modal) {
-      modal.classList.add('show');
-      modal.style.display = 'block';
+    const campi = [
+      { id: 'numeroTicket', nome: 'Numero Ticket' },
+      { id: 'oggetto', nome: 'Oggetto' },
+      { id: 'applicativo', nome: 'Applicativo' },
+      { id: 'dataCreazione', nome: 'Data Creazione' }
+    ];
+  
+    const campiMancanti = [];
+  
+    for (const campo of campi) {
+      const campoElement = document.getElementById(campo.id);
+      if (campoElement) {
+        const campoValue = (<HTMLInputElement>campoElement).value;
+        if (!campoValue || campoValue.trim().length < 5) {
+          campiMancanti.push(campo.nome);
+        }
+      }
+    }
+  
+    if (campiMancanti.length > 0) {
+      let messaggio = 'Mancano dati nei seguenti campi:\n';
+      messaggio += campiMancanti.join(', ');
+      alert(messaggio);
+    } else {
+      const modal = document.getElementById('modalSalvataggio');
+      if (modal) {
+        modal.classList.add('show');
+        modal.style.display = 'block';
+      }
     }
   }
+  
+  
+  
+  
+  
+  
 
   // Metodo per chiudere il modal
   closeSalva() {
@@ -141,7 +173,7 @@ export class InserimentoComponent implements OnInit {
 
     const importo = (<HTMLInputElement>document.getElementById('importo'))
       .value;
-      const importoParsed = importo === '' ? null : String(importo);
+      const importoParsed = importo === '' ? null : importo;
 
     const statoApprovazioneConsap = (<HTMLSelectElement>(
       document.getElementById('statoApprovazioneConsap')
@@ -169,7 +201,7 @@ export class InserimentoComponent implements OnInit {
     const commessaOs = (<HTMLSelectElement>(
       document.getElementById('commessaOs')
     )).value;
-    const commessaOsParsed = parseInt(commessaOs);
+    const commessaOsParsed = commessaOs === '' ? null : parseInt(commessaOs);
 
     
     
@@ -212,5 +244,17 @@ export class InserimentoComponent implements OnInit {
     }, (error) => {
       console.error(error);
     })
+  }
+
+  // crea metodo di reload della pagina corrente
+  reload(){
+    window.location.reload();
+  }
+
+  showErrorNumeroTicket = false;
+
+  checkNumeroTicket(event: any) {
+    const inputText = event.target.value;
+    this.showErrorNumeroTicket = !(/^\d{5}$/.test(inputText));
   }
 }

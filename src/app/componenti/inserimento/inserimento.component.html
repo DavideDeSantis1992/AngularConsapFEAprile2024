@@ -18,8 +18,9 @@
         <div class="row">
             <div class="col-md-3">
                 <label for="numeroTicket">Numero Ticket</label>
-                <input type="text" class="form-control" id="numeroTicket" placeholder="Inserisci numero ticket"
-                    maxlength="5" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                <input type="text" class="form-control" id="numeroTicket" placeholder="Inserisci numero ticket" maxlength="5"
+                    (input)="checkNumeroTicket($event)">
+                <span *ngIf="showErrorNumeroTicket" class="text-primary">5 caratteri obbligatori</span>
             </div>
             <div class="col-md-6">
                 <label for="oggetto">Oggetto</label>
@@ -43,7 +44,7 @@
             <div class="col-md-3">
                 <label for="statoRichiestaConsap">Stato Richiesta CONSAP</label>
                 <select id="statoRichiestaConsap" class="form-control custom-select">
-                    <option disabled selected hidden value="">- Selezione Stato Ric. CONSAP -</option>
+                    <option value="">- Selezione Stato Ric. CONSAP -</option>
                     <option *ngIf="statoRichiestaConsap && statoRichiestaConsap.length > 0"
                         [value]="statoRichiestaConsap[0].statoRichiestaConsapId">
                         {{ statoRichiestaConsap[0].descStatoRichiestaConsap }}
@@ -54,7 +55,7 @@
             <div class="col-md-3">
                 <label for="statoRichiestaOs">Stato Richiesta OS</label>
                 <select id="statoRichiestaOs" class="form-control custom-select">
-                    <option disabled selected hidden value="">- Selezione Stato Ric. OS -</option>
+                    <option value="">- Selezione Stato Ric. OS -</option>
                     <option *ngIf="statoRichiestaOs && statoRichiestaOs.length > 0"
                         [value]="statoRichiestaOs[0].statoRichiestaOsId">
                         {{ statoRichiestaOs[0].descStatoRichiestaOs }}
@@ -64,7 +65,7 @@
             <div class="col-md-3">
                 <label for="statoApprovazioneConsap">Stato Approvazione CONSAP</label>
                 <select id="statoApprovazioneConsap" class="form-control custom-select">
-                    <option disabled selected hidden value="">- Selezione Stato Ric. CONSAP -</option>
+                    <option value="">- Selezione Stato Ric. CONSAP -</option>
                     <option *ngIf="statoApprovazioneConsap && statoApprovazioneConsap.length > 0"
                         [value]="statoApprovazioneConsap[0].statoApprovazioneConsapId">
                         {{ statoApprovazioneConsap[0].descStatoApprovazioneConsap }}
@@ -74,7 +75,7 @@
             <div class="col-md-3">
                 <label for="statoApprovazioneOs">Stato Approvazione OS</label>
                 <select id="statoApprovazioneOs" class="form-control custom-select">
-                    <option disabled selected hidden value="">- Selezione Stato App. OS -</option>
+                    <option value="">- Selezione Stato App. OS -</option>
                     <option *ngIf="statoApprovazioneOs && statoApprovazioneOs.length > 0"
                         [value]="statoApprovazioneOs[0].statoApprovazioneOsId">
                         {{ statoApprovazioneOs[0].descStatoApprovazioneOs }}
@@ -90,12 +91,15 @@
             </div>
             <div class="col-md-3">
                 <label for="dataStimaFinale">Data Stima Fine</label>
-                <input type="date" class="form-control" id="dataStimaFinale">
+                <input type="date" class="form-control" id="dataStimaFinale"
+                
+                
+                >
             </div>
             <div class="col-md-3">
                 <label for="commessaOs">Commessa OS</label>
                 <select id="commessaOs" class="form-control custom-select">
-                    <option disabled selected hidden value=""> - Commessa OS -</option>
+                    <option  value=""> - Commessa OS -</option>
                 <ng-container *ngFor="let com of commessaOs">
                   <option value="{{com.commessaOsId}}">
                     {{ com.codiceCommessaOs }} - {{ com.descCommessaOs }}
@@ -144,7 +148,7 @@
                             <p>Vuoi continuare o tornare alla lista ?</p>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-primary btn-sm" data-bs-dismiss="modal" type="button" (click)="closeConferma()">Ritorna</button>
+                            <button class="btn btn-primary btn-sm" data-bs-dismiss="modal" type="button" (click)="closeConferma();reload()">Ritorna</button>
                             <button class="btn btn-primary btn-sm" data-bs-dismiss="modal" type="button" [routerLink]="'/elenco'">Elenco</button>
                             
                         </div>

@@ -36,3 +36,35 @@
 .custom-select option {
   border: 1px solid #000; /* Colore del bordo */
 }
+
+.centrato {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress-spinner {
+  width: 100px; /* Regola la larghezza dello spinner */
+  height: 100px; /* Regola l'altezza dello spinner */
+  justify-content: center;
+  align-items: center;
+  /* Aggiungi qui altri stili dello spinner se necessario */
+}
+
+.paginazione{
+  background-color:#accbb5;
+  opacity: 0.9;
+  justify-content: center;
+  /* stile del colore del testo in nero*/
+  
+
+}
+
+nav{
+  color:black
+}
+
+
+.cursore{
+  cursor: pointer;
+}
