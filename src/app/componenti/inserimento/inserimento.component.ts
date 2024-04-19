@@ -17,7 +17,6 @@ import { Router } from 'express';
   styleUrl: './inserimento.component.css',
 })
 export class InserimentoComponent implements OnInit {
-  
   richieste!: richiestaAttualeArr[];
 
   applicativo!: Applicativo[];
@@ -28,6 +27,8 @@ export class InserimentoComponent implements OnInit {
   commessaOs!: CommessaOs[];
   router: any;
 
+  dataCreazione: string = '';
+
   constructor(private connex: RichiestaService) {}
 
   ngOnInit(): void {
@@ -37,6 +38,11 @@ export class InserimentoComponent implements OnInit {
     this.getStatoApprovazioneConsap();
     this.getStatoApprovazioneOs();
     this.getCommessaOs();
+  }
+
+  aggiornaDataCreazione():void{
+    const dataCreazioneElement = document.getElementById('dataCreazione') as HTMLInputElement;
+    this.dataCreazione = dataCreazioneElement.value;
   }
 
   getApplicativo() {
@@ -86,11 +92,11 @@ export class InserimentoComponent implements OnInit {
       { id: 'numeroTicket', nome: 'Numero Ticket' },
       { id: 'oggetto', nome: 'Oggetto' },
       { id: 'applicativo', nome: 'Applicativo' },
-      { id: 'dataCreazione', nome: 'Data Creazione' }
+      { id: 'dataCreazione', nome: 'Data Creazione' },
     ];
-  
+
     const campiMancanti = [];
-  
+
     for (const campo of campi) {
       const campoElement = document.getElementById(campo.id);
       if (campoElement) {
@@ -100,7 +106,7 @@ export class InserimentoComponent implements OnInit {
         }
       }
     }
-  
+
     if (campiMancanti.length > 0) {
       let messaggio = 'Mancano dati nei seguenti campi:\n';
       messaggio += campiMancanti.join(', ');
@@ -113,12 +119,6 @@ export class InserimentoComponent implements OnInit {
       }
     }
   }
-  
-  
-  
-  
-  
-  
 
   // Metodo per chiudere il modal
   closeSalva() {
@@ -146,20 +146,21 @@ export class InserimentoComponent implements OnInit {
     }
   }
 
-  creaRichiesta(){
+  creaRichiesta() {
     const numeroTicket = (<HTMLInputElement>(
       document.getElementById('numeroTicket')
     )).value;
     const numeroTicketParsed = parseInt(numeroTicket);
 
-    const oggetto = (<HTMLInputElement>document.getElementById('oggetto')).value;
-    const oggettoParsed: string = String(oggetto);  
-    
+    const oggetto = (<HTMLInputElement>document.getElementById('oggetto'))
+      .value;
+    const oggettoParsed: string = String(oggetto);
+
     const applicativo = (<HTMLSelectElement>(
       document.getElementById('applicativo')
-      )).value;
-    const applicativoParsed = applicativo ==='' ? null : parseInt(applicativo);
-    
+    )).value;
+    const applicativoParsed = applicativo === '' ? null : parseInt(applicativo);
+
     const dataCreazione = (<HTMLInputElement>(
       document.getElementById('dataCreazione')
     )).value;
@@ -168,86 +169,88 @@ export class InserimentoComponent implements OnInit {
     const statoRichiestaConsap = (<HTMLSelectElement>(
       document.getElementById('statoRichiestaConsap')
     )).value;
-    const statoRichiestaConsapParsed = statoRichiestaConsap === '' ? null : parseInt(statoRichiestaConsap);
-
+    const statoRichiestaConsapParsed =
+      statoRichiestaConsap === '' ? null : parseInt(statoRichiestaConsap);
 
     const importo = (<HTMLInputElement>document.getElementById('importo'))
       .value;
-      const importoParsed = importo === '' ? null : importo;
+    const importoParsed = importo === '' ? null : importo;
 
     const statoApprovazioneConsap = (<HTMLSelectElement>(
       document.getElementById('statoApprovazioneConsap')
     )).value;
 
-    const statoApprovazioneConsapParsed = statoApprovazioneConsap === '' ? null : parseInt(statoApprovazioneConsap);
-    
+    const statoApprovazioneConsapParsed =
+      statoApprovazioneConsap === '' ? null : parseInt(statoApprovazioneConsap);
 
     const statoApprovazioneOs = (<HTMLSelectElement>(
       document.getElementById('statoApprovazioneOs')
     )).value;
-    const statoApprovazioneOsParsed = statoApprovazioneOs === '' ? null : parseInt(statoApprovazioneOs);
+    const statoApprovazioneOsParsed =
+      statoApprovazioneOs === '' ? null : parseInt(statoApprovazioneOs);
 
     const statoRichiestaOs = (<HTMLSelectElement>(
       document.getElementById('statoRichiestaOs')
     )).value;
-    const statoRichiestaOsParsed = statoRichiestaOs === '' ? null : parseInt(statoRichiestaOs);
-    
+    const statoRichiestaOsParsed =
+      statoRichiestaOs === '' ? null : parseInt(statoRichiestaOs);
+
     const dataStimaFinale = (<HTMLInputElement>(
       document.getElementById('dataStimaFinale')
     )).value;
 
-    const dataStimaFinaleParsed = dataStimaFinale === '' ? null : String(dataStimaFinale);
-  
+    const dataStimaFinaleParsed =
+      dataStimaFinale === '' ? null : String(dataStimaFinale);
+
     const commessaOs = (<HTMLSelectElement>(
       document.getElementById('commessaOs')
     )).value;
     const commessaOsParsed = commessaOs === '' ? null : parseInt(commessaOs);
 
-    
-    
     const dati = {
       erroreDTO: null,
       filtri: null,
-      elenco: 
-      [
-          {
-              id: null,
-              numeroTicket: numeroTicketParsed,
-              applicativo: {
-                  applicativoId: applicativoParsed
-              },
-              oggetto: oggettoParsed,
-              statoRichiestaConsap: {
-                  statoRichiestaConsapId: statoRichiestaConsapParsed
-              },
-              dataCreazione: dataCreazioneParsed,
-              statoApprovazioneConsap: {
-                  statoApprovazioneConsapId: statoApprovazioneConsapParsed
-              },
-              statoApprovazioneOs: {
-                  statoApprovazioneOsId: statoApprovazioneOsParsed
-              },
-              statoRichiestaOs: {
-                  statoRichiestaOsId: statoRichiestaOsParsed
-              },
-              dataStimaFinale: dataStimaFinaleParsed,
-              importo: importoParsed,
-              commessaOs: {
-                  commessaOsId: commessaOsParsed
-              }
-          }
-      ]
-  };
-    this.connex.inserimentoRichiesta(dati).subscribe((data) => {
-      console.log("RICHIESTA SALVATA:",dati);
-      
-    }, (error) => {
-      console.error(error);
-    })
+      elenco: [
+        {
+          id: null,
+          numeroTicket: numeroTicketParsed,
+          applicativo: {
+            applicativoId: applicativoParsed,
+          },
+          oggetto: oggettoParsed,
+          statoRichiestaConsap: {
+            statoRichiestaConsapId: statoRichiestaConsapParsed,
+          },
+          dataCreazione: dataCreazioneParsed,
+          statoApprovazioneConsap: {
+            statoApprovazioneConsapId: statoApprovazioneConsapParsed,
+          },
+          statoApprovazioneOs: {
+            statoApprovazioneOsId: statoApprovazioneOsParsed,
+          },
+          statoRichiestaOs: {
+            statoRichiestaOsId: statoRichiestaOsParsed,
+          },
+          dataStimaFinale: dataStimaFinaleParsed,
+          importo: importoParsed,
+          commessaOs: {
+            commessaOsId: commessaOsParsed,
+          },
+        },
+      ],
+    };
+    this.connex.inserimentoRichiesta(dati).subscribe(
+      (data) => {
+        console.log('RICHIESTA SALVATA:', dati);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 
   // crea metodo di reload della pagina corrente
-  reload(){
+  reload() {
     window.location.reload();
   }
 
@@ -255,6 +258,6 @@ export class InserimentoComponent implements OnInit {
 
   checkNumeroTicket(event: any) {
     const inputText = event.target.value;
-    this.showErrorNumeroTicket = !(/^\d{5}$/.test(inputText));
+    this.showErrorNumeroTicket = !/^\d{5}$/.test(inputText);
   }
 }

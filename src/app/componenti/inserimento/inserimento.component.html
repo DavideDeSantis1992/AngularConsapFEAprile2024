@@ -87,12 +87,12 @@
         <div class="row">
             <div class="col-md-3">
                 <label for="dataCreazione">Data Creazione</label>
-                <input type="date" class="form-control" id="dataCreazione">
+                <input type="date" class="form-control" id="dataCreazione" (input)="aggiornaDataCreazione()">
             </div>
             <div class="col-md-3">
                 <label for="dataStimaFinale">Data Stima Fine</label>
                 <input type="date" class="form-control" id="dataStimaFinale"
-                
+                [min]="dataCreazione"
                 
                 >
             </div>
