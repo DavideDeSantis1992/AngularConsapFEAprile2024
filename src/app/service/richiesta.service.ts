@@ -16,12 +16,12 @@ export class RichiestaService {
   currentPage: number = 1; // fisso a 1
   pageSize:number = 5;
   
-  
+  campo:string="dataCreazione"
   constructor(private http: HttpClient) { }
 
   private urlLogin = 'http://localhost:8080/login';
 
-  private urlElenco = `http://localhost:8080/richiesta/${this.currentPage}-${this.pageSize}`;
+  private urlElenco = `http://localhost:8080/richiesta/${this.currentPage}-${this.pageSize}?campo=${this.campo}&ordinamento=desc`;
   private urlElencoStorico = `http://localhost:8080/richiesta/storico/${this.currentPage}-${this.pageSize}`;
 
   private urlModifica="http://localhost:8080/richiesta/edit"
@@ -205,6 +205,8 @@ export class RichiestaService {
 
     return this.http.post<any>(this.urlModifica, dati, { headers }); // Restituisci l'observable
   }
+
+
 
   
 }

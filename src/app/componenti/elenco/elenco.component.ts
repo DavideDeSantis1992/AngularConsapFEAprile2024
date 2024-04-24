@@ -37,6 +37,13 @@ export class ElencoComponent implements OnInit {
   currentPage: any = 1; // fisso a 1
   pageSize:any = 5;
   pagineTotali:any=0;
+  zero:any=0;
+
+  flagOrdineNumeroTicket:boolean=true;
+  flagOrdineDataCreazione:boolean=false;
+
+  ordinamentoNumeroTicket:string="desc";
+  ordinamentoDataCreazione:string="desc";
 
   constructor(private richiestaService: RichiestaService,private http: HttpClient) {}
 
@@ -147,8 +154,8 @@ paginata(size:any):Observable<any> {
   )).value;
   const statoRichiestaOsParsed = statoRichiestaOs === '' ? null : parseInt(statoRichiestaOs)||null;
 
-
-    const urlElenco = `http://localhost:8080/richiesta/${this.currentPage}-${size}`;
+    const campo = "dataCreazione"
+    const urlElenco = `http://localhost:8080/richiesta/${this.currentPage}-${size}?campo=${campo}&ordinamento=desc`;
 
     const accessToken = localStorage.getItem('access_token');
     if (!accessToken) {
@@ -220,8 +227,8 @@ numeroPaginata(currentPage:any):Observable<any> {
   )).value;
   const statoRichiestaOsParsed = statoRichiestaOs === '' ? null : parseInt(statoRichiestaOs)||null;
 
-
-    const urlElenco = `http://localhost:8080/richiesta/${currentPage}-${this.pageSize}`;
+    const campo="dataCreazione"
+    const urlElenco = `http://localhost:8080/richiesta/${currentPage}-${this.pageSize}?campo=${campo}&ordinamento=desc`;
 
     const accessToken = localStorage.getItem('access_token');
     if (!accessToken) {
@@ -448,7 +455,8 @@ numeroPaginata(currentPage:any):Observable<any> {
 prendiNumeroPaginaInput(){
   // devo prendere il valore del campo con id "numeroPaginaInput"
     const numeroPaginaInput = (<HTMLInputElement>document.getElementById('numeroPaginaInput')).value;
-    if(numeroPaginaInput<=this.pagineTotali){
+    
+    if(numeroPaginaInput<=this.pagineTotali && numeroPaginaInput>this.zero){
     this.currentPage=numeroPaginaInput;
 
     this.numeroPaginata(numeroPaginaInput).subscribe(data=>{
@@ -460,7 +468,7 @@ prendiNumeroPaginaInput(){
       console.log("pagine Totali: ",this.pagineTotali);
     })
   } else {
-    alert("Numero pagina non presente, pagine totali: "+this.pagineTotali);
+    alert("Numero pagina non presente, pagine da 1 a "+this.pagineTotali);
   }
 }
 
@@ -495,6 +503,7 @@ paginaSuccessiva() {
     });
   }
 }
+
 
 
   

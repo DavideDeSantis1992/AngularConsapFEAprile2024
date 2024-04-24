@@ -14,8 +14,10 @@ export class richiestaAttualeArr{
 }
 
 export interface Applicativo{applicativoId:number,descApplicativo:any}
-export interface StatoRichiestaConsap{statoRichiestaConsapId:number,descStatoRichiestaConsap:any}
-export interface StatoApprovazioneConsap{statoApprovazioneConsapId:number,descStatoApprovazioneConsap:any}
-export interface StatoApprovazioneOs{statoApprovazioneOsId:number,descStatoApprovazioneOs:any}
-export interface StatoRichiestaOs{statoRichiestaOsId:number,descStatoRichiestaOs:any}
-export interface CommessaOs{commessaOsId:number,codiceCommessaOs:any,descCommessaOs:any}
+export interface StatoRichiestaConsap{statoRichiestaConsapId:number,descStatoRichiestaConsap:any,abilitato:boolean}
+export interface StatoApprovazioneConsap{statoApprovazioneConsapId:number,descStatoApprovazioneConsap:any,abilitato:boolean}
+export interface StatoApprovazioneOs{statoApprovazioneOsId:number,descStatoApprovazioneOs:any,abilitato:boolean}
+export interface StatoRichiestaOs{statoRichiestaOsId:number,descStatoRichiestaOs:any,
+    abilitato:boolean}
+export interface CommessaOs{commessaOsId:number,codiceCommessaOs:any,descCommessaOs:any,
+    abilitato:boolean}

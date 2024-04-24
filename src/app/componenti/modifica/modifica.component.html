@@ -48,14 +48,12 @@
                 <label for="statoRichiestaConsap">Stato Richiesta CONSAP</label>
                 
                 <select id="statoRichiestaConsap" class="form-control custom-select">
-                    <option [value]="letturaStatoRichiestaConsap ? '-' : richiesta?.statoRichiestaConsap?.statoRichiestaConsapId"
-                            [ngValue]="letturaStatoRichiestaConsap ? '-' : richiesta?.statoRichiestaConsap">
-                        {{ richiesta?.statoRichiestaConsap ? richiesta.statoRichiestaConsap.descStatoRichiestaConsap : '-' }}
-                    </option>
-                    <option *ngIf="condizioneStatoRichiestaConsap"
-                            [value]="statoRichiestaConsapBox?.statoRichiestaConsapId">
-                        {{ statoRichiestaConsapBox?.descStatoRichiestaConsap }}
-                    </option>
+                    <option value="" [disabled]="!condizioneVisibleNullStatoRichiestaConsap">-</option>
+                    <ng-container *ngFor="let stato of statoRichiestaConsap">
+                        <option [value]="stato.statoRichiestaConsapId" [selected]="richiesta?.statoRichiestaConsap?.statoRichiestaConsapId === stato.statoRichiestaConsapId" [disabled]="!stato.abilitato">
+                            {{ stato.descStatoRichiestaConsap }}
+                        </option>
+                    </ng-container>
                 </select>
             </div>
             
@@ -64,14 +62,13 @@
                 <label for="statoRichiestaOs">Stato Richiesta OS</label>
                 
                 <select id="statoRichiestaOs" class="form-control custom-select">
-                    <option [value]="letturaStatoRichiestaOs ? '-' : richiesta?.statoRichiestaOs?.statoRichiestaOsId"
-                            [ngValue]="letturaStatoRichiestaOs ? '-' : richiesta?.statoRichiestaOs">
-                        {{ richiesta?.statoRichiestaOs ? richiesta.statoRichiestaOs.descStatoRichiestaOs : '-' }}
-                    </option>
-                    <option *ngIf="condizioneStatoRichiestaOs"
-                            [value]="statoRichiestaOsBox?.statoRichiestaOsId">
-                        {{ statoRichiestaOsBox?.descStatoRichiestaOs }}
-                    </option>
+                    <option value="" [disabled]="!condizioneVisibleNullStatoRichiestaOs">-</option>
+                    <ng-container *ngFor="let stato of statoRichiestaOs">
+                        <option [value]="stato.statoRichiestaOsId" [selected]="richiesta?.statoRichiestaOs?.statoRichiestaOsId === stato.statoRichiestaOsId"
+                        [disabled]="!stato.abilitato">
+                            {{ stato.descStatoRichiestaOs }}
+                        </option>
+                    </ng-container>
                 </select>
             </div>
 
@@ -80,14 +77,13 @@
                 <label for="statoApprovazioneConsap">Stato Approvazione CONSAP</label>
                 
                 <select id="statoApprovazioneConsap" class="form-control custom-select">
-                    <option [value]="letturaStatoApprovazioneConsap ? '-' : richiesta?.statoApprovazioneConsap?.statoApprovazioneConsapId"
-                            [ngValue]="letturaStatoApprovazioneConsap ? '-' : richiesta?.statoApprovazioneConsap">
-                        {{ richiesta?.statoApprovazioneConsap ? richiesta.statoApprovazioneConsap.descStatoApprovazioneConsap : '-' }}
-                    </option>
-                    <option *ngIf="condizioneStatoApprovazioneConsap"
-                            [value]="statoApprovazioneConsapBox?.statoApprovazioneConsapId">
-                        {{ statoApprovazioneConsapBox?.descStatoApprovazioneConsap }}
-                    </option>
+                    <option value="" [disabled]="!condizioneVisibleNullStatoApprovazioneConsap">-</option>
+                    <ng-container *ngFor="let stato of statoApprovazioneConsap">
+                        <option [value]="stato.statoApprovazioneConsapId" [selected]="richiesta?.statoApprovazioneConsap?.statoApprovazioneConsapId === stato.statoApprovazioneConsapId"
+                        [disabled]="!stato.abilitato">
+                            {{ stato.descStatoApprovazioneConsap }}
+                        </option>
+                    </ng-container>
                 </select>
             </div>
 
@@ -95,14 +91,13 @@
                 <label for="statoApprovazioneOs">Stato Approvazione OS</label>
                 
                 <select id="statoApprovazioneOs" class="form-control custom-select">
-                    <option [value]="letturaStatoApprovazioneOs ? '-' : richiesta?.statoApprovazioneOs?.statoApprovazioneOsId"
-                            [ngValue]="letturaStatoApprovazioneOs ? '-' : richiesta?.statoApprovazioneOs">
-                        {{ richiesta?.statoApprovazioneOs ? richiesta.statoApprovazioneOs.descStatoApprovazioneOs : '-' }}
-                    </option>
-                    <option *ngIf="condizioneStatoApprovazioneOs"
-                            [value]="statoApprovazioneOsBox?.statoApprovazioneOsId">
-                        {{ statoApprovazioneOsBox?.descStatoApprovazioneOs }}
-                    </option>
+                    <option value="" [disabled]="!condizioneVisibleNullStatoApprovazioneOs">-</option>
+                    <ng-container *ngFor="let stato of statoApprovazioneOs">
+                        <option [value]="stato.statoApprovazioneOsId" [selected]="richiesta?.statoApprovazioneOs?.statoApprovazioneOsId === stato.statoApprovazioneOsId"
+                        [disabled]="!stato.abilitato">
+                            {{ stato.descStatoApprovazioneOs }}
+                        </option>
+                    </ng-container>
                 </select>
             </div>
         </div>
@@ -123,6 +118,7 @@
             <div class="col-md-3">
                 <label for="commessaOs">Commessa OS</label>
                 <select id="commessaOs" class="form-control custom-select">
+                    <option value="">-</option>
                     <ng-container *ngFor="let com of commessaOs">
                         <option [value]="com.commessaOsId" [selected]="richiesta?.commessaOs?.commessaOsId === com.commessaOsId">
                             {{ com.codiceCommessaOs }} - {{ com.descCommessaOs }}
@@ -142,11 +138,47 @@
         <br>
         <div class="btn-container">
             <div class="btn-example">
-              <button type="button" class="btn btn-primary" (click)="editRichiesta()">Modifica</button>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal" (click)="openModifica()">Modifica</button>
+    
+                <!-- Modal Salvataggio-->
+                <div class="modal fade" tabindex="-1" role="dialog" id="modalOpenModifica" aria-labelledby="exampleModalTitle">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="modal-title h5 " id="exampleModalTitle">Modifica Richiesta</h2>
+                            </div>
+                            <div class="modal-body">
+                                <p>Sei sicuro di voler modificare i dati ?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary btn-sm" data-bs-dismiss="modal" type="button" (click)="closeModifica()">Annulla</button>
+                                <button class="btn btn-primary btn-sm" data-bs-dismiss="modal" type="button" (click)="openConferma();editRichiesta()">Conferma</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Conferma-->
+                <div class="modal fade" tabindex="-1" role="dialog" id="modalConfermaModifica" aria-labelledby="exampleModalTitle">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="modal-title h5 " id="exampleModalTitle">Operazione conclusa</h2>
+                            </div>
+                            <div class="modal-body">
+                                <p>Dati modificati con successo</p>
+                                <p>Vuoi continuare o tornare alla lista ?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary btn-sm" data-bs-dismiss="modal" type="button" (click)="closeConferma();reload()">Esci</button>
+                                <button class="btn btn-primary btn-sm" data-bs-dismiss="modal" type="button" [routerLink]="'/elenco'">Elenco</button>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- <div class="btn-example">
-              <button type="button" class="btn btn-secondary">Ripristina</button>
-            </div> -->
         </div>
           
     </div>
