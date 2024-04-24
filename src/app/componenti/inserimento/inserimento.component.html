@@ -6,7 +6,7 @@
     <div class="img-responsive-wrapper">
         <div class="img-responsive">
             <div class="img-wrapper">
-                <img src="https://i.pinimg.com/736x/35/d6/99/35d6995038a7b36fb863419c91517e33.jpg"
+                <img src="https://img.freepik.com/free-photo/grey-gradient-abstract_176532-7758.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1713830400&semt=ais"
                     title="titolo immagine" alt="descrizione immagine">
             </div>
         </div>
@@ -44,7 +44,8 @@
             <div class="col-md-3">
                 <label for="statoRichiestaConsap">Stato Richiesta CONSAP</label>
                 <select id="statoRichiestaConsap" class="form-control custom-select">
-                    <option value="">- Selezione Stato Ric. CONSAP -</option>
+                    <!-- <option disabled selected hidden value="">- Selezione Stato Ric. CONSAP -</option> -->
+                    <option value="">-</option>
                     <option *ngIf="statoRichiestaConsap && statoRichiestaConsap.length > 0"
                         [value]="statoRichiestaConsap[0].statoRichiestaConsapId">
                         {{ statoRichiestaConsap[0].descStatoRichiestaConsap }}
@@ -55,7 +56,7 @@
             <div class="col-md-3">
                 <label for="statoRichiestaOs">Stato Richiesta OS</label>
                 <select id="statoRichiestaOs" class="form-control custom-select">
-                    <option value="">- Selezione Stato Ric. OS -</option>
+                    <option value="">-</option>
                     <option *ngIf="statoRichiestaOs && statoRichiestaOs.length > 0"
                         [value]="statoRichiestaOs[0].statoRichiestaOsId">
                         {{ statoRichiestaOs[0].descStatoRichiestaOs }}
@@ -65,7 +66,7 @@
             <div class="col-md-3">
                 <label for="statoApprovazioneConsap">Stato Approvazione CONSAP</label>
                 <select id="statoApprovazioneConsap" class="form-control custom-select">
-                    <option value="">- Selezione Stato Ric. CONSAP -</option>
+                    <option value="">-</option>
                     <option *ngIf="statoApprovazioneConsap && statoApprovazioneConsap.length > 0"
                         [value]="statoApprovazioneConsap[0].statoApprovazioneConsapId">
                         {{ statoApprovazioneConsap[0].descStatoApprovazioneConsap }}
@@ -75,7 +76,7 @@
             <div class="col-md-3">
                 <label for="statoApprovazioneOs">Stato Approvazione OS</label>
                 <select id="statoApprovazioneOs" class="form-control custom-select">
-                    <option value="">- Selezione Stato App. OS -</option>
+                    <option value="">-</option>
                     <option *ngIf="statoApprovazioneOs && statoApprovazioneOs.length > 0"
                         [value]="statoApprovazioneOs[0].statoApprovazioneOsId">
                         {{ statoApprovazioneOs[0].descStatoApprovazioneOs }}
@@ -99,7 +100,7 @@
             <div class="col-md-3">
                 <label for="commessaOs">Commessa OS</label>
                 <select id="commessaOs" class="form-control custom-select">
-                    <option  value=""> - Commessa OS -</option>
+                    <option value="">-</option>
                 <ng-container *ngFor="let com of commessaOs">
                   <option value="{{com.commessaOsId}}">
                     {{ com.codiceCommessaOs }} - {{ com.descCommessaOs }}

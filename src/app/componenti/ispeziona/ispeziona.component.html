@@ -6,11 +6,11 @@
     <div class="img-responsive-wrapper">
         <div class="img-responsive">
             <div class="img-wrapper">
-                <img src="https://i.pinimg.com/736x/35/d6/99/35d6995038a7b36fb863419c91517e33.jpg"
-                    title="titolo immagine" alt="descrizione immagine">
+                
             </div>
         </div>
     </div>
+    
 
     <!-- Contenuto -->
     <div class="container text-white">
@@ -84,33 +84,29 @@
             <div class="col-md-3">
                 <label for="importo">Importo</label>
                 <input type="text" class="form-control" id="importo"
-                [value]="richiestaShow?.importo"
+                [value]="richiestaShow?.importo ? richiestaShow.importo : '0'"
                 readonly>
             </div>
         </div>
-        <br>
-        <div class="btn-container">
+        
+        <!-- <div class="btn-container">
             <div class="btn-example">
               <button type="button" class="btn btn-secondary">Stampa</button>
             </div>
-          </div>
+          </div> -->
 
-          <br>
+        <br>  
     <table class="table table-success table-borderless">
         <thead>
           <tr class="argomento">
-            <th scope="col">Numero Ticket</th>
-            <th scope="col">Oggetto</th>
-            <th scope="col">Applicativo</th>
-            <th scope="col">Data Inserimento</th>
-            <th scope="col">Gestione Richiesta</th>
+            
+            <th scope="col">Dato del:</th>
+            <th scope="col">Ispeziona</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let storia of richiesta">
-            <td *ngIf="storia?.numeroTicket !== null">{{storia.numeroTicket}}</td>
-            <td>{{storia.oggetto}}</td>
-            <td>{{storia.applicativo.descApplicativo}}</td>
+            
             <td>{{ storia.dataInserimento | date:'dd-MM-yyyy - HH:mm' }}</td>
             <td>
                 <a style="margin-right: 25px;" (click)="visualizzaRichiestaStorica(storia)">
@@ -119,11 +115,11 @@
                     </svg>
                 </a>
                 
-                <a href="/modifica" style="margin-right: 25px;">
+                <!-- <a href="/modifica" style="margin-right: 25px;">
                     <svg class="icon icon-sm icon-secondary align-top me-1" aria-hidden="true">
                         <use href="#it-pencil" fill="black"></use>
                     </svg>
-                </a>                
+                </a>                 -->
             </td>
             
               
@@ -132,6 +128,63 @@
           
         </tbody>
       </table>
+      <nav class="pagination-wrapper paginazione" aria-label="Esempio di navigazione con page changer">
+        <!--Inizio Numero pagine -->
+        <ul class="pagination">
+          <li class="page-item "><span class="page-link " [style]="{color: 'white'}">Vai a pagina:</span></li>
+          <!-- aggiungi una label di input per vai a pagina: -->
+          <li>
+          <input type="text" class="page-link "  id="numeroPaginaInput" name="numeroPagina" min="1" max="{{pagineTotali}}" value="{{currentPage}}">
+        </li>
+        <br>
+        <li><div class="btn-container ">
+          <div class="btn-example">
+            
+            <button type="button" class="btn btn-primary" (click)="prendiNumeroPaginaInput()">Vai</button>
+          </div>
+  
+        </div></li>
+          
+  
+          <li class="page-item"><span class="page-link testoNero" [style]="{color: 'white'}">Pagina: {{currentPage}}/{{pagineTotali}}</span></li>
+          <li class="page-item">
+            
+            <a class="page-link" (click)="paginaPrecedente()">
+                <svg class="icon icon-primary cursore" (click)="paginaPrecedente()">
+                    <use href="#it-chevron-left" ></use>
+                </svg>
+                <span class="visually-hidden">Pagina precedente</span>
+            </a>
+        </li>
+        
+          <!-- Pagina Iniziale -->
+          <!-- <li class="page-item"><a class="page-link testoNero cursore" value="1" (click)="prendiNumeroPagina($event)" >1</a></li> -->
+          
+          
+          <!-- prendi pagina successiva -->
+  
+          <li class="page-item"><a class="page-link testoNero cursore"[style]="{color: 'white'}">{{currentPage}}</a></li>
+          <!-- <li class="page-item"><a class="page-link testoNero cursore" value="2" (click)="prendiNumeroPagina($event)">{{currentPage}}</a></li> -->
+          
+          <!-- ultima pagina -->
+          <!-- <li class="page-item">
+            <a class="page-link testoNero cursore" [attr.value]="pagineTotali" (click)="prendiNumeroPagina($event)">
+                {{pagineTotali}}
+            </a>
+          </li> -->
+        
+          <li class="page-item">
+            <!-- <a class="page-link" > -->
+            <a class="page-link" (click)="paginaSuccessiva()">
+              <span class="visually-hidden" >Pagina successiva</span>
+              <svg class="icon icon-primary cursore" ><use href="#it-chevron-right" ></use></svg>
+            </a>
+          </li>
+        </ul>
+        <!-- Fine Numero pagine -->
+  
+        
+      </nav>
     </div>
     
 </section>

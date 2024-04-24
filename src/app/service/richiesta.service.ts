@@ -16,6 +16,7 @@ export class RichiestaService {
   currentPage: number = 1; // fisso a 1
   pageSize:number = 5;
   
+  
   constructor(private http: HttpClient) { }
 
   private urlLogin = 'http://localhost:8080/login';
@@ -23,7 +24,7 @@ export class RichiestaService {
   private urlElenco = `http://localhost:8080/richiesta/${this.currentPage}-${this.pageSize}`;
   private urlElencoStorico = `http://localhost:8080/richiesta/storico/${this.currentPage}-${this.pageSize}`;
 
-  private urlBase="http://localhost:8080"
+  private urlModifica="http://localhost:8080/richiesta/edit"
 
   private urlCreaRichiesta = "http://localhost:8080/richiesta/new"
   private urlApplicativo="http://localhost:8080/applicativo"
@@ -167,6 +168,17 @@ export class RichiestaService {
 
     return this.http.post<any>(this.urlElencoStorico, dati, { headers }); // Restituisci l'observable
   }
+  idRichiestaModifica(dati:any){ // Cambiato il tipo di ritorno in Observable<any>
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+      console.log("ACCESS TOKEN NON TROVATO");
+    }
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', `Bearer ${accessToken}`);
+
+    return this.http.post<any>(this.urlElenco, dati, { headers }); // Restituisci l'observable
+  }
   
   
   elencoFiltratoPost(dati:any):Observable<any>{
@@ -181,4 +193,18 @@ export class RichiestaService {
       .set('Authorization', `Bearer ${accessToken}`);
     return this.http.post<any>(this.urlElenco, dati, { headers }); 
   }
+
+  modificaRichiesta(dati:any){ // Cambiato il tipo di ritorno in Observable<any>
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+      console.log("ACCESS TOKEN NON TROVATO");
+    }
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', `Bearer ${accessToken}`);
+
+    return this.http.post<any>(this.urlModifica, dati, { headers }); // Restituisci l'observable
+  }
+
+  
 }

@@ -34,6 +34,10 @@ export class ElencoComponent implements OnInit {
 
   paginaSelezionata: string = '5/pagina';
 
+  currentPage: any = 1; // fisso a 1
+  pageSize:any = 5;
+  pagineTotali:any=0;
+
   constructor(private richiestaService: RichiestaService,private http: HttpClient) {}
 
   ngOnInit(): void {
@@ -86,19 +90,65 @@ export class ElencoComponent implements OnInit {
     console.log('Valore selezionato:', value);
     // Aggiorna il testo del pulsante con il valore selezionato
     this.paginaSelezionata = valueText.trim();
+
+    this.pageSize=value;
+    
     
     this.paginata(value).subscribe(data=>{
       this.richieste=data.elenco.content;
       console.log("Elenco richieste paginate: ",data.elenco.content)
+      this.pagineTotali=data.elenco.totalPages;
+      
+      console.log("pagine Totali: ",this.pagineTotali);
+      
       // console.log("Richieste: "+ JSON.stringify(this.richieste));
       
     })
     
 }
 
+
+
 paginata(size:any):Observable<any> {
-  const currentPage = 1;
-    const urlElenco = `http://localhost:8080/richiesta/${currentPage}-${size}`;
+  
+
+  const numeroTicket = (<HTMLInputElement>(
+    document.getElementById('numeroTicketFiltro')
+  )).value;
+  const numeroTicketParsed = numeroTicket === '' ? null : parseInt(numeroTicket);
+
+  const oggetto = (<HTMLInputElement>document.getElementById('oggettoFiltro')).value;
+  const oggettoParsed = oggetto === '' ? null : String(oggetto);  
+  
+  const applicativo = (<HTMLSelectElement>(
+    document.getElementById('applicativoFiltro')
+    )).value;
+  const applicativoParsed = applicativo ==='' ? null : parseInt(applicativo) || null;
+
+  const statoRichiestaConsap = (<HTMLSelectElement>(
+    document.getElementById('statoRichiestaConsapFiltro')
+  )).value;
+  const statoRichiestaConsapParsed = statoRichiestaConsap === '' ? null : parseInt(statoRichiestaConsap) || null;
+
+
+  const statoApprovazioneConsap = (<HTMLSelectElement>(
+    document.getElementById('statoApprovazioneConsapFiltro')
+  )).value;
+  const statoApprovazioneConsapParsed = statoApprovazioneConsap === '' ? null : parseInt(statoApprovazioneConsap)||null;
+  
+
+  const statoApprovazioneOs = (<HTMLSelectElement>(
+    document.getElementById('statoApprovazioneOsFiltro')
+  )).value;
+  const statoApprovazioneOsParsed = statoApprovazioneOs === '' ? null : parseInt(statoApprovazioneOs)||null;
+
+  const statoRichiestaOs = (<HTMLSelectElement>(
+    document.getElementById('statoRichiestaOsFiltro')
+  )).value;
+  const statoRichiestaOsParsed = statoRichiestaOs === '' ? null : parseInt(statoRichiestaOs)||null;
+
+
+    const urlElenco = `http://localhost:8080/richiesta/${this.currentPage}-${size}`;
 
     const accessToken = localStorage.getItem('access_token');
     if (!accessToken) {
@@ -107,23 +157,23 @@ paginata(size:any):Observable<any> {
     }
 
     const body = {
-      erroreDTO: null,
-      filtri: {
-        "id": null,
-        "numeroTicket": null,
-        "applicativoId": null,
-        "oggetto": null,
-        "statoRichiestaConsapId": null,
-        "dataCreazione": null,
-        "statoApprovazioneConsapId": null,
-        "statoApprovazioneOsId": null,
-        "statoRichiestaOsId": null,
-        "dataStimaFinale": null,
-        "importo": null,
-        "commessaOsId": null
+      "erroreDTO": null,
+      "filtri": {
+          "id": null,
+          "numeroTicket": numeroTicketParsed,
+          "applicativo": {"applicativoId":applicativoParsed},
+          "oggetto": oggettoParsed,
+          "statoRichiestaConsap": {"statoRichiestaConsapId":statoRichiestaConsapParsed},
+          "dataCreazione": null,
+          "statoApprovazioneConsap": {"statoApprovazioneConsapId":statoApprovazioneConsapParsed},
+          "statoApprovazioneOs": {"statoApprovazioneOsId":statoApprovazioneOsParsed},
+          "statoRichiestaOs": {"statoRichiestaOsId":statoRichiestaOsParsed},
+          "dataStimaFinale": null,
+          "importo": null,
+          "commessaOsId": null
       },
-      elenco: null
-    };
+      "elenco": null
+  };
 
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
@@ -132,18 +182,86 @@ paginata(size:any):Observable<any> {
     return this.http.post<any>(urlElenco, body, { headers });
 }
 
-
-
-  
+numeroPaginata(currentPage:any):Observable<any> {
   
 
+  const numeroTicket = (<HTMLInputElement>(
+    document.getElementById('numeroTicketFiltro')
+  )).value;
+  const numeroTicketParsed = numeroTicket === '' ? null : parseInt(numeroTicket);
+
+  const oggetto = (<HTMLInputElement>document.getElementById('oggettoFiltro')).value;
+  const oggettoParsed = oggetto === '' ? null : String(oggetto);  
+  
+  const applicativo = (<HTMLSelectElement>(
+    document.getElementById('applicativoFiltro')
+    )).value;
+  const applicativoParsed = applicativo ==='' ? null : parseInt(applicativo) || null;
+
+  const statoRichiestaConsap = (<HTMLSelectElement>(
+    document.getElementById('statoRichiestaConsapFiltro')
+  )).value;
+  const statoRichiestaConsapParsed = statoRichiestaConsap === '' ? null : parseInt(statoRichiestaConsap) || null;
+
+
+  const statoApprovazioneConsap = (<HTMLSelectElement>(
+    document.getElementById('statoApprovazioneConsapFiltro')
+  )).value;
+  const statoApprovazioneConsapParsed = statoApprovazioneConsap === '' ? null : parseInt(statoApprovazioneConsap)||null;
   
 
+  const statoApprovazioneOs = (<HTMLSelectElement>(
+    document.getElementById('statoApprovazioneOsFiltro')
+  )).value;
+  const statoApprovazioneOsParsed = statoApprovazioneOs === '' ? null : parseInt(statoApprovazioneOs)||null;
+
+  const statoRichiestaOs = (<HTMLSelectElement>(
+    document.getElementById('statoRichiestaOsFiltro')
+  )).value;
+  const statoRichiestaOsParsed = statoRichiestaOs === '' ? null : parseInt(statoRichiestaOs)||null;
+
+
+    const urlElenco = `http://localhost:8080/richiesta/${currentPage}-${this.pageSize}`;
+
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+      console.log("ACCESS TOKEN NON TROVATO");
+      
+    }
+
+    const body = {
+      "erroreDTO": null,
+      "filtri": {
+          "id": null,
+          "numeroTicket": numeroTicketParsed,
+          "applicativo": {"applicativoId":applicativoParsed},
+          "oggetto": oggettoParsed,
+          "statoRichiestaConsap": {"statoRichiestaConsapId":statoRichiestaConsapParsed},
+          "dataCreazione": null,
+          "statoApprovazioneConsap": {"statoApprovazioneConsapId":statoApprovazioneConsapParsed},
+          "statoApprovazioneOs": {"statoApprovazioneOsId":statoApprovazioneOsParsed},
+          "statoRichiestaOs": {"statoRichiestaOsId":statoRichiestaOsParsed},
+          "dataStimaFinale": null,
+          "importo": null,
+          "commessaOsId": null
+      },
+      "elenco": null
+  };
+
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', `Bearer ${accessToken}`);
+
+    return this.http.post<any>(urlElenco, body, { headers });
+}
   getElenco(){
     this.richiestaService.elencoPaginatoPost().subscribe(data=>{
       this.richieste=data.elenco.content;
       console.log("Elenco richieste aggiornate: ",data.elenco.content)
       // console.log("Richieste: "+ JSON.stringify(this.richieste));
+      this.pagineTotali=data.elenco.totalPages;
+      
+      console.log("pagine Totali: ",this.pagineTotali);
       
     })
   }
@@ -269,6 +387,7 @@ paginata(size:any):Observable<any> {
       "elenco": null
   };
   console.log("Dati filtro: ", dati);
+  
   this.richiestaService.elencoFiltratoPost(dati).subscribe((data) => {
     this.richieste=data.elenco.content;
     console.log("Elenco richieste filtrate: ",this.richieste);
@@ -306,6 +425,76 @@ paginata(size:any):Observable<any> {
 
     this.getElenco();
   }
+
+
+
+  prendiNumeroPagina(event: MouseEvent){
+    const target = event.target as HTMLSpanElement;
+    const valueText = target.textContent || '';
+    const currentPageSelezionato = (valueText.split('/')[0].trim());
+    console.log('Valore selezionato:', currentPageSelezionato);
+    
+    this.currentPage=currentPageSelezionato;
+    this.numeroPaginata(currentPageSelezionato).subscribe(data=>{
+      this.richieste=data.elenco.content;
+      console.log("Elenco richieste paginate: ",data.elenco.content)
+      // console.log("Richieste: "+ JSON.stringify(this.richieste));
+      this.pagineTotali=data.elenco.totalPages;
+      console.log("pagine Totali: ",this.pagineTotali);
+    })
+    
+}
+
+prendiNumeroPaginaInput(){
+  // devo prendere il valore del campo con id "numeroPaginaInput"
+    const numeroPaginaInput = (<HTMLInputElement>document.getElementById('numeroPaginaInput')).value;
+    if(numeroPaginaInput<=this.pagineTotali){
+    this.currentPage=numeroPaginaInput;
+
+    this.numeroPaginata(numeroPaginaInput).subscribe(data=>{
+      this.richieste=data.elenco.content;
+      console.log("Elenco richieste paginate: ",data.elenco.content)
+      // console.log("Richieste: "+ JSON.stringify(this.richieste));
+      this.pagineTotali=data.elenco.totalPages;
+      
+      console.log("pagine Totali: ",this.pagineTotali);
+    })
+  } else {
+    alert("Numero pagina non presente, pagine totali: "+this.pagineTotali);
+  }
+}
+
+paginaPrecedente() {
+  if (this.currentPage > 1) {
+    let currentPageCopy = this.currentPage; // Salviamo il valore corrente di currentPage in una variabile locale
+    currentPageCopy--; // Decrementiamo il valore per la pagina precedente
+
+    this.numeroPaginata(currentPageCopy).subscribe(data => {
+      this.currentPage = currentPageCopy; // Aggiorniamo this.currentPage con il valore corretto
+      this.richieste = data.elenco.content;
+      console.log("Elenco richieste paginate: ", data.elenco.content);
+      this.pagineTotali = data.elenco.totalPages;
+      console.log("Pagina corrente: ", this.currentPage);
+      console.log("Pagine Totali: ", this.pagineTotali);
+    });
+  }
+}
+
+paginaSuccessiva() {
+  if (this.currentPage < this.pagineTotali) {
+    let currentPageCopy = this.currentPage; // Salviamo il valore corrente di currentPage in una variabile locale
+    currentPageCopy++; // Incrementiamo il valore per la pagina successiva
+
+    this.numeroPaginata(currentPageCopy).subscribe(data => {
+      this.currentPage = currentPageCopy; // Aggiorniamo this.currentPage con il valore corretto
+      this.richieste = data.elenco.content;
+      console.log("Elenco richieste paginate: ", data.elenco.content);
+      this.pagineTotali = data.elenco.totalPages;
+      console.log("Pagina corrente: ", this.currentPage);
+      console.log("Pagine Totali: ", this.pagineTotali);
+    });
+  }
+}
 
 
   

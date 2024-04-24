@@ -6,7 +6,7 @@
     <div class="img-responsive-wrapper">
         <div class="img-responsive">
             <div class="img-wrapper">
-                <img src="https://i.pinimg.com/736x/35/d6/99/35d6995038a7b36fb863419c91517e33.jpg"
+                <img src="https://img.freepik.com/free-photo/grey-gradient-abstract_176532-7758.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1713830400&semt=ais"
                     title="titolo immagine" alt="descrizione immagine">
             </div>
         </div>
@@ -18,99 +18,135 @@
         <div class="row">
             <div class="col-md-3">
                 <label for="numeroTicket">Numero Ticket</label>
-                <input type="text" class="form-control" id="numeroTicket" readonly>
+                <input type="text" class="form-control" id="numeroTicket" [value]="richiesta?.numeroTicket" readonly>
             </div>
+            
             <div class="col-md-6">
                 <label for="oggetto">Oggetto</label>
-                <input type="text" class="form-control" id="oggetto" readonly>
+                <input type="text" class="form-control" id="oggetto" 
+                [value]="richiesta?.oggetto"
+                readonly>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" *ngIf="richiesta && richiesta.applicativo">
                 <label for="applicativo">Applicativo</label>
-                <input type="text" class="form-control" id="applicativo" readonly>
+                <input type="text" class="form-control" id="applicativo"
+                       [value]="richiesta.applicativo.descApplicativo || '-'"
+                       
+                       [readonly]="true"
+                       [attr.applicativoId]="richiesta.applicativo.applicativoId">
             </div>
+            
+            
+            
+            
+            
+            
         </div>
         <!-- 2a Riga -->
         <div class="row">
             <div class="col-md-3">
                 <label for="statoRichiestaConsap">Stato Richiesta CONSAP</label>
+                
                 <select id="statoRichiestaConsap" class="form-control custom-select">
-                    <option selected disabled>Scegli stato</option>
-                    <option value="Value 1">Opzione 1</option>
-                    <option value="Value 2">Opzione 2</option>
-                    <option value="Value 3">Opzione 3</option>
-                    <option value="Value 4">Opzione 4</option>
-                    <option value="Value 5">Opzione 5</option>
+                    <option [value]="letturaStatoRichiestaConsap ? '-' : richiesta?.statoRichiestaConsap?.statoRichiestaConsapId"
+                            [ngValue]="letturaStatoRichiestaConsap ? '-' : richiesta?.statoRichiestaConsap">
+                        {{ richiesta?.statoRichiestaConsap ? richiesta.statoRichiestaConsap.descStatoRichiestaConsap : '-' }}
+                    </option>
+                    <option *ngIf="condizioneStatoRichiestaConsap"
+                            [value]="statoRichiestaConsapBox?.statoRichiestaConsapId">
+                        {{ statoRichiestaConsapBox?.descStatoRichiestaConsap }}
+                    </option>
                 </select>
             </div>
+            
+            
             <div class="col-md-3">
                 <label for="statoRichiestaOs">Stato Richiesta OS</label>
+                
                 <select id="statoRichiestaOs" class="form-control custom-select">
-                    <option selected disabled>Scegli stato</option>
-                    <option value="Value 1">Opzione 1</option>
-                    <option value="Value 2">Opzione 2</option>
-                    <option value="Value 3">Opzione 3</option>
-                    <option value="Value 4">Opzione 4</option>
-                    <option value="Value 5">Opzione 5</option>
+                    <option [value]="letturaStatoRichiestaOs ? '-' : richiesta?.statoRichiestaOs?.statoRichiestaOsId"
+                            [ngValue]="letturaStatoRichiestaOs ? '-' : richiesta?.statoRichiestaOs">
+                        {{ richiesta?.statoRichiestaOs ? richiesta.statoRichiestaOs.descStatoRichiestaOs : '-' }}
+                    </option>
+                    <option *ngIf="condizioneStatoRichiestaOs"
+                            [value]="statoRichiestaOsBox?.statoRichiestaOsId">
+                        {{ statoRichiestaOsBox?.descStatoRichiestaOs }}
+                    </option>
                 </select>
             </div>
+
+
             <div class="col-md-3">
                 <label for="statoApprovazioneConsap">Stato Approvazione CONSAP</label>
+                
                 <select id="statoApprovazioneConsap" class="form-control custom-select">
-                    <option selected disabled>Scegli stato</option>
-                    <option value="Value 1">Opzione 1</option>
-                    <option value="Value 2">Opzione 2</option>
-                    <option value="Value 3">Opzione 3</option>
-                    <option value="Value 4">Opzione 4</option>
-                    <option value="Value 5">Opzione 5</option>
+                    <option [value]="letturaStatoApprovazioneConsap ? '-' : richiesta?.statoApprovazioneConsap?.statoApprovazioneConsapId"
+                            [ngValue]="letturaStatoApprovazioneConsap ? '-' : richiesta?.statoApprovazioneConsap">
+                        {{ richiesta?.statoApprovazioneConsap ? richiesta.statoApprovazioneConsap.descStatoApprovazioneConsap : '-' }}
+                    </option>
+                    <option *ngIf="condizioneStatoApprovazioneConsap"
+                            [value]="statoApprovazioneConsapBox?.statoApprovazioneConsapId">
+                        {{ statoApprovazioneConsapBox?.descStatoApprovazioneConsap }}
+                    </option>
                 </select>
             </div>
+
             <div class="col-md-3">
-                <label for="statoApprovazioneOs">Stato Richiesta OS</label>
+                <label for="statoApprovazioneOs">Stato Approvazione OS</label>
+                
                 <select id="statoApprovazioneOs" class="form-control custom-select">
-                    <option selected disabled>Scegli stato</option>
-                    <option value="Value 1">Opzione 1</option>
-                    <option value="Value 2">Opzione 2</option>
-                    <option value="Value 3">Opzione 3</option>
-                    <option value="Value 4">Opzione 4</option>
-                    <option value="Value 5">Opzione 5</option>
+                    <option [value]="letturaStatoApprovazioneOs ? '-' : richiesta?.statoApprovazioneOs?.statoApprovazioneOsId"
+                            [ngValue]="letturaStatoApprovazioneOs ? '-' : richiesta?.statoApprovazioneOs">
+                        {{ richiesta?.statoApprovazioneOs ? richiesta.statoApprovazioneOs.descStatoApprovazioneOs : '-' }}
+                    </option>
+                    <option *ngIf="condizioneStatoApprovazioneOs"
+                            [value]="statoApprovazioneOsBox?.statoApprovazioneOsId">
+                        {{ statoApprovazioneOsBox?.descStatoApprovazioneOs }}
+                    </option>
                 </select>
             </div>
         </div>
         <!-- 3a Riga -->
-        
         <div class="row">
             <div class="col-md-3">
                 <label for="dataCreazione">Data Creazione</label>
-                <input type="date" class="form-control" id="dataCreazione" readonly>
+                <input type="date" class="form-control" id="dataCreazione"
+                [value]="richiesta?.dataCreazione"
+                readonly>
             </div>
             <div class="col-md-3">
                 <label for="dataStimaFinale">Data Stima Fine</label>
-                <input type="date" class="form-control" id="dataStimaFinale">
+                <input type="date" class="form-control" id="dataStimaFinale"
+                [value]="richiesta?.dataStimaFinale ? richiesta.dataStimaFinale : '-'"
+                >
             </div>
             <div class="col-md-3">
                 <label for="commessaOs">Commessa OS</label>
                 <select id="commessaOs" class="form-control custom-select">
-                    <option selected disabled>Scegli commessa</option>
-                    <option value="Value 1">Opzione 1</option>
-                    <option value="Value 2">Opzione 2</option>
-                    <option value="Value 3">Opzione 3</option>
-                    <option value="Value 4">Opzione 4</option>
-                    <option value="Value 5">Opzione 5</option>
+                    <ng-container *ngFor="let com of commessaOs">
+                        <option [value]="com.commessaOsId" [selected]="richiesta?.commessaOs?.commessaOsId === com.commessaOsId">
+                            {{ com.codiceCommessaOs }} - {{ com.descCommessaOs }}
+                        </option>
+                    </ng-container>
                 </select>
             </div>
+            
+            
             <div class="col-md-3">
                 <label for="importo">Importo</label>
-                <input type="text" class="form-control" id="importo" placeholder="Inserisci importo">
+                <input type="text" class="form-control" id="importo"
+                [value]="richiesta?.importo"
+                >
             </div>
         </div>
         <br>
         <div class="btn-container">
             <div class="btn-example">
-              <button type="button" class="btn btn-primary disabled">Modifca</button>
+              <button type="button" class="btn btn-primary" (click)="editRichiesta()">Modifica</button>
             </div>
-            <div class="btn-example">
+            <!-- <div class="btn-example">
               <button type="button" class="btn btn-secondary">Ripristina</button>
-            </div>
+            </div> -->
         </div>
           
     </div>

@@ -101,7 +101,7 @@ export class InserimentoComponent implements OnInit {
       const campoElement = document.getElementById(campo.id);
       if (campoElement) {
         const campoValue = (<HTMLInputElement>campoElement).value;
-        if (!campoValue || campoValue.trim().length < 5) {
+        if (!campoValue || campoValue.trim().length < 1) {
           campiMancanti.push(campo.nome);
         }
       }

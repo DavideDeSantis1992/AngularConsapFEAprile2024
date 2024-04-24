@@ -6,7 +6,7 @@
     <div class="img-responsive-wrapper">
       <div class="img-responsive">
         <div class="img-wrapper">
-          <img src="https://i.pinimg.com/736x/35/d6/99/35d6995038a7b36fb863419c91517e33.jpg" title="titolo immagine" alt="descrizione immagine">
+          <img src="https://img.freepik.com/free-photo/grey-gradient-abstract_176532-7758.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1713830400&semt=ais" title="titolo immagine" alt="descrizione immagine">
         </div>
       </div>
     </div>
@@ -159,7 +159,7 @@
               </svg>
             </a>
           
-            <a href="/modifica" style="margin-right: 25px;">
+            <a href="/modifica" style="margin-right: 25px;"(click)="prendiId(ric)">
               <svg class="icon icon-sm icon-secondary align-top me-1" aria-hidden="true">
                 <use href="#it-pencil" fill="black"></use>
               </svg>
@@ -176,34 +176,55 @@
     </table>
 
     <nav class="pagination-wrapper paginazione" aria-label="Esempio di navigazione con page changer">
-      
+      <!--Inizio Numero pagine -->
       <ul class="pagination">
+        <li class="page-item"><span class="page-link testoNero">Vai a pagina:</span></li>
+        <!-- aggiungi una label di input per vai a pagina: -->
+        <li>
+        <input type="text" class="page-link testoNero vai" id="numeroPaginaInput" name="numeroPagina" min="1" max="{{pagineTotali}}" value="{{currentPage}}">
+      </li>
+      <br>
+      <li><div class="btn-container ">
+        <div class="btn-example">
+          <button type="button" class="btn btn-primary" (click)="prendiNumeroPaginaInput()">Vai</button>
+        </div>
+
+      </div></li>
+        
+
+        <li class="page-item"><span class="page-link testoNero">Pagina: {{currentPage}}/{{pagineTotali}}</span></li>
         <li class="page-item">
-          <a class="page-link" href="#">
-            <svg class="icon icon-primary"><use href="#it-chevron-left"></use></svg>
-            <span class="visually-hidden">Pagina precedente</span>
+          <a class="page-link" (click)="paginaPrecedente()">
+              <svg class="icon icon-primary cursore" (click)="paginaPrecedente()">
+                  <use href="#it-chevron-left"></use>
+              </svg>
+              <span class="visually-hidden">Pagina precedente</span>
           </a>
-        </li>
-        <li class="page-item"><a class="page-link testoNero" href="#">1</a></li>
-        <li class="page-item"><span class="page-link testoNero">...</span></li>
-        <li class="page-item"><a class="page-link testoNero" href="#">24</a></li>
-        <li class="page-item"><a class="page-link testoNero" href="#">25</a></li>
-        <li class="page-item active">
-          <a class="page-link" href="#" aria-current="page">
-            <span class="d-inline-block d-sm-none testoNero">Pagina </span>26
+      </li>
+      
+        <!-- Pagina Iniziale -->
+        <!-- <li class="page-item"><a class="page-link testoNero cursore" value="1" (click)="prendiNumeroPagina($event)" >1</a></li> -->
+        
+        
+        <!-- prendi pagina successiva -->
+
+        <li class="page-item"><a class="page-link testoNero cursore" value="2" (click)="prendiNumeroPagina($event)">{{currentPage}}</a></li>
+        
+        <!-- ultima pagina -->
+        <!-- <li class="page-item">
+          <a class="page-link testoNero cursore" [attr.value]="pagineTotali" (click)="prendiNumeroPagina($event)">
+              {{pagineTotali}}
           </a>
-        </li>
-        <li class="page-item"><a class="page-link testoNero" href="#">27</a></li>
-        <li class="page-item"><a class="page-link testoNero" href="#">28</a></li>
-        <li class="page-item"><span class="page-link testoNero">...</span></li>
-        <li class="page-item"><a class="page-link testoNero" href="#">50</a></li>
+        </li> -->
+      
         <li class="page-item">
-          <a class="page-link" href="#">
-            <span class="visually-hidden">Pagina successiva</span>
-            <svg class="icon icon-primary"><use href="#it-chevron-right"></use></svg>
+          <a class="page-link" (click)="paginaSuccessiva()">
+            <span class="visually-hidden" >Pagina successiva</span>
+            <svg class="icon icon-primary cursore" ><use href="#it-chevron-right" ></use></svg>
           </a>
         </li>
       </ul>
+      <!-- Fine Numero pagine -->
 
       <div class="dropdown">
         <button class="btn btn-dropdown dropdown-toggle testoNero" type="button"  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Salta alla pagina" (click)="apriChiudiDropdown()">
@@ -213,9 +234,10 @@
         <div class="dropdown-menu" aria-labelledby="pagerChanger" id="pagerChanger">
           <div class="link-list-wrapper">
             <ul class="link-list testoNero">
-              <li><a class="list-item active cursore" aria-current="page" value="2" (click)="prendiValorePagina($event)"><span>2/pagina</span></a></li>
-              <li><a class="list-item active cursore" aria-current="page" value="5" (click)="prendiValorePagina($event)"><span>5/pagina</span></a></li>
-              <li><a class="list-item active cursore" aria-current="page" value="10" (click)="prendiValorePagina($event)"><span>10/pagina</span></a></li>
+              <li><a class="list-item active cursore" aria-current="page" value="1" (click)="prendiValorePagina($event);apriChiudiDropdown()"><span>1/pagina</span></a></li>
+              <li><a class="list-item active cursore" aria-current="page" value="2" (click)="prendiValorePagina($event);apriChiudiDropdown()"><span>2/pagina</span></a></li>
+              <li><a class="list-item active cursore" aria-current="page" value="5" (click)="prendiValorePagina($event);apriChiudiDropdown()"><span>5/pagina</span></a></li>
+              <li><a class="list-item active cursore" aria-current="page" value="10" (click)="prendiValorePagina($event);apriChiudiDropdown()"><span>10/pagina</span></a></li>
 
               
             </ul>
