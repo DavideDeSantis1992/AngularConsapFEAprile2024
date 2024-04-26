@@ -102,6 +102,7 @@ export class IspezionaComponent implements OnInit {
   }
 
   numeroPaginataStorica(paginaCorrente:any){
+    
     const urlElenco = `http://localhost:8080/richiesta/storico/${paginaCorrente}-${this.pageSize}`;
 
     const accessToken = localStorage.getItem('access_token');

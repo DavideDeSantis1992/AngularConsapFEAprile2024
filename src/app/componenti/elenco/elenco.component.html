@@ -139,21 +139,21 @@
     <table class="table table-success table-borderless">
       <thead>
         <tr class="argomento">
-          <th scope="col">
+          <th scope="col"  (click)="getElencoNumeroTicket()">
             Numero Ticket
-            <svg id="ticketIcon" class="icon icon-primary cursor ">
-              <use [attr.xlink:href]="ordinamentoNumeroTicket === 'asc' ? '#it-collapse' : null"></use>
-              <use [attr.xlink:href]="ordinamentoNumeroTicket === 'desc' ? '#it-expand' : null"></use>
+            <svg id="ticketIcon" class="icon icon-primary cursore " >
+              <use [attr.xlink:href]="ordinamentoNumeroTicket === 'desc' ? '#it-collapse' : null" ></use>
+              <use [attr.xlink:href]="ordinamentoNumeroTicket === 'asc' ? '#it-expand' : null" ></use>
           </svg>
           
         </th>
           <th scope="col">Oggetto</th>
           <th scope="col">Applicativo</th>
-          <th scope="col">
+          <th scope="col" (click)="getElencoDataCreazione()">
             Data Creazione
-            <svg id="dataIcon" class="icon icon-primary cursor ">
-              <use [attr.xlink:href]="ordinamentoDataCreazione === 'asc' ? '#it-collapse' : null"></use>
-              <use [attr.xlink:href]="ordinamentoDataCreazione === 'desc' ? '#it-expand' : null"></use>
+            <svg id="dataIcon" class="icon icon-primary cursore ">
+              <use [attr.xlink:href]="ordinamentoDataCreazione === 'desc' ? '#it-collapse' : null" ></use>
+              <use [attr.xlink:href]="ordinamentoDataCreazione === 'asc' ? '#it-expand' : null" ></use>
           </svg>
         </th>
           <th scope="col">Gestione Richiesta</th>

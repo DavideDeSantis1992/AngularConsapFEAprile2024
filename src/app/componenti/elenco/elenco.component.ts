@@ -39,11 +39,19 @@ export class ElencoComponent implements OnInit {
   pagineTotali:any=0;
   zero:any=0;
 
-  flagOrdineNumeroTicket:boolean=true;
-  flagOrdineDataCreazione:boolean=false;
-
   ordinamentoNumeroTicket:string="desc";
+
   ordinamentoDataCreazione:string="desc";
+
+  numeroCaso:number=0;
+
+  
+
+  private urlMod="";
+
+  
+
+  private urlX = `http://localhost:8080/richiesta/`;
 
   constructor(private richiestaService: RichiestaService,private http: HttpClient) {}
 
@@ -99,6 +107,7 @@ export class ElencoComponent implements OnInit {
     this.paginaSelezionata = valueText.trim();
 
     this.pageSize=value;
+    this.currentPage=1
     
     
     this.paginata(value).subscribe(data=>{
@@ -154,14 +163,38 @@ paginata(size:any):Observable<any> {
   )).value;
   const statoRichiestaOsParsed = statoRichiestaOs === '' ? null : parseInt(statoRichiestaOs)||null;
 
-    const campo = "dataCreazione"
-    const urlElenco = `http://localhost:8080/richiesta/${this.currentPage}-${size}?campo=${campo}&ordinamento=desc`;
+    
 
     const accessToken = localStorage.getItem('access_token');
     if (!accessToken) {
       console.log("ACCESS TOKEN NON TROVATO");
       
     }
+
+    if(this.numeroCaso==0){
+      
+      this.urlMod = this.urlX+`${this.currentPage}-${size}?campo=dataCreazione&ordinamento=desc`;
+      console.log("URL AGGIORNATO: ",this.urlMod);
+      
+    } else if (this.numeroCaso==1){
+
+      this.urlMod = this.urlX+`${this.currentPage}-${size}?campo=numeroTicket&ordinamento=asc`;
+      console.log("URL AGGIORNATO: ",this.urlMod);
+    } else if (this.numeroCaso==2){
+
+      this.urlMod = this.urlX+`${this.currentPage}-${size}?campo=numeroTicket&ordinamento=desc`;
+      console.log("URL AGGIORNATO: ",this.urlMod);
+    } else if (this.numeroCaso==3){
+
+      this.urlMod = this.urlX+`${this.currentPage}-${size}?campo=dataCreazione&ordinamento=asc`;
+      console.log("URL AGGIORNATO: ",this.urlMod);
+    } else if (this.numeroCaso==4){
+
+      this.urlMod = this.urlX+`${this.currentPage}-${size}?campo=dataCreazione&ordinamento=desc`;
+      console.log("URL AGGIORNATO: ",this.urlMod);
+    } 
+
+
 
     const body = {
       "erroreDTO": null,
@@ -185,8 +218,9 @@ paginata(size:any):Observable<any> {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization', `Bearer ${accessToken}`);
-
-    return this.http.post<any>(urlElenco, body, { headers });
+    
+    
+    return this.http.post<any>(this.urlMod, body, { headers });
 }
 
 numeroPaginata(currentPage:any):Observable<any> {
@@ -227,8 +261,32 @@ numeroPaginata(currentPage:any):Observable<any> {
   )).value;
   const statoRichiestaOsParsed = statoRichiestaOs === '' ? null : parseInt(statoRichiestaOs)||null;
 
-    const campo="dataCreazione"
-    const urlElenco = `http://localhost:8080/richiesta/${currentPage}-${this.pageSize}?campo=${campo}&ordinamento=desc`;
+    
+
+    if(this.numeroCaso==0){
+      
+      this.urlMod = this.urlX+`${currentPage}-${this.pageSize}?campo=dataCreazione&ordinamento=desc`;
+      console.log("URL AGGIORNATO: ",this.urlMod);
+      
+    }else if (this.numeroCaso==1){
+
+      this.urlMod = this.urlX+`${currentPage}-${this.pageSize}?campo=numeroTicket&ordinamento=asc`;
+      console.log("URL AGGIORNATO: ",this.urlMod);
+    } else if (this.numeroCaso==2){
+
+      this.urlMod = this.urlX+`${currentPage}-${this.pageSize}?campo=numeroTicket&ordinamento=desc`;
+      console.log("URL AGGIORNATO: ",this.urlMod);
+    } else if (this.numeroCaso==3){
+
+      this.urlMod = this.urlX+`${currentPage}-${this.pageSize}?campo=dataCreazione&ordinamento=asc`;
+      console.log("URL AGGIORNATO: ",this.urlMod);
+    } else if (this.numeroCaso==4){
+
+      this.urlMod = this.urlX+`${currentPage}-${this.pageSize}?campo=dataCreazione&ordinamento=desc`;
+      console.log("URL AGGIORNATO: ",this.urlMod);
+    } 
+
+
 
     const accessToken = localStorage.getItem('access_token');
     if (!accessToken) {
@@ -259,10 +317,10 @@ numeroPaginata(currentPage:any):Observable<any> {
       .set('Content-Type', 'application/json')
       .set('Authorization', `Bearer ${accessToken}`);
 
-    return this.http.post<any>(urlElenco, body, { headers });
+    return this.http.post<any>(this.urlMod, body, { headers });
 }
   getElenco(){
-    this.richiestaService.elencoPaginatoPost().subscribe(data=>{
+    this.richiestaService.elencoPaginatoPost("dataCreazione","desc").subscribe(data=>{
       this.richieste=data.elenco.content;
       console.log("Elenco richieste aggiornate: ",data.elenco.content)
       // console.log("Richieste: "+ JSON.stringify(this.richieste));
@@ -271,6 +329,56 @@ numeroPaginata(currentPage:any):Observable<any> {
       console.log("pagine Totali: ",this.pagineTotali);
       
     })
+  }
+
+  //ordinamento elenco per numeroTicket alternato crescente o decrescente
+
+  getElencoNumeroTicket(){
+    
+    
+    if (this.ordinamentoNumeroTicket === 'desc') {
+      this.ordinamentoNumeroTicket = 'asc';
+      this.numeroCaso=1;
+      this.currentPage=1;
+      this.richiestaService.elencoAttributiOrdinati("numeroTicket","asc",this.pageSize).subscribe((data) => {
+        this.richieste = data.elenco.content;
+        this.pagineTotali=data.elenco.totalPages
+      })
+    } else {
+      this.ordinamentoNumeroTicket = 'desc';
+      this.numeroCaso=2;
+      this.currentPage=1;
+      this.richiestaService.elencoAttributiOrdinati("numeroTicket","desc",this.pageSize).subscribe((data) => {
+        this.richieste = data.elenco.content;
+        this.pagineTotali=data.elenco.totalPages
+      })
+    }
+    console.log("Ordinamento numero ticket: ",this.ordinamentoNumeroTicket);
+  }
+
+  // ordinamento elenco per data creazione alternato crescente o decrescente
+
+  getElencoDataCreazione(){
+    
+    
+    if (this.ordinamentoDataCreazione === 'desc') {
+      this.ordinamentoDataCreazione = 'asc';
+      this.numeroCaso=3;
+      this.currentPage=1;
+      this.richiestaService.elencoAttributiOrdinati("dataCreazione","asc",this.pageSize).subscribe((data) => {
+        this.richieste = data.elenco.content;
+        this.pagineTotali=data.elenco.totalPages
+      })
+    } else {
+      this.ordinamentoDataCreazione = 'desc';
+      this.numeroCaso=4;
+      this.currentPage=1;
+      this.richiestaService.elencoAttributiOrdinati("dataCreazione","desc",this.pageSize).subscribe((data) => {
+        this.richieste = data.elenco.content;
+        this.pagineTotali=data.elenco.totalPages
+      })
+    }
+    console.log("Ordinamento data creazione: ",this.ordinamentoDataCreazione);
   }
 
   // Metodo per aprire il modal
@@ -394,9 +502,35 @@ numeroPaginata(currentPage:any):Observable<any> {
       "elenco": null
   };
   console.log("Dati filtro: ", dati);
+  this.currentPage=1;
+
+  if(this.numeroCaso==0){
+      
+    this.urlMod = this.urlX+`${this.currentPage}-${this.pageSize}?campo=dataCreazione&ordinamento=desc`;
+    console.log("URL AGGIORNATO: ",this.urlMod);
+    
+  } else if (this.numeroCaso==1){
+
+    this.urlMod = this.urlX+`${this.currentPage}-${this.pageSize}?campo=numeroTicket&ordinamento=asc`;
+    console.log("URL AGGIORNATO: ",this.urlMod);
+  } else if (this.numeroCaso==2){
+
+    this.urlMod = this.urlX+`${this.currentPage}-${this.pageSize}?campo=numeroTicket&ordinamento=desc`;
+    console.log("URL AGGIORNATO: ",this.urlMod);
+  } else if (this.numeroCaso==3){
+
+    this.urlMod = this.urlX+`${this.currentPage}-${this.pageSize}?campo=dataCreazione&ordinamento=asc`;
+    console.log("URL AGGIORNATO: ",this.urlMod);
+  } else if (this.numeroCaso==4){
+
+    this.urlMod = this.urlX+`${this.currentPage}-${this.pageSize}?campo=dataCreazione&ordinamento=desc`;
+    console.log("URL AGGIORNATO: ",this.urlMod);
+  } 
+
   
-  this.richiestaService.elencoFiltratoPost(dati).subscribe((data) => {
+  this.richiestaService.elencoFiltratoPost(dati,this.urlMod).subscribe((data) => {
     this.richieste=data.elenco.content;
+    this.pagineTotali=data.elenco.totalPages;
     console.log("Elenco richieste filtrate: ",this.richieste);
     
   }, (error)=>{
@@ -430,8 +564,42 @@ numeroPaginata(currentPage:any):Observable<any> {
     const statoApprovazioneOsSelect = <HTMLSelectElement>document.getElementById('statoApprovazioneOsFiltro');
     statoApprovazioneOsSelect.value = 'null';
 
+    if(this.numeroCaso==0){
     this.getElenco();
-  }
+    } else if (this.numeroCaso==1){
+
+      this.ordinamentoNumeroTicket = 'asc';
+      
+      this.currentPage=1;
+      this.richiestaService.elencoAttributiOrdinati("numeroTicket","asc",this.pageSize).subscribe((data) => {
+        this.richieste = data.elenco.content;
+        this.pagineTotali=data.elenco.totalPages
+      })
+    } else if(this.numeroCaso==2){
+      this.ordinamentoNumeroTicket = 'desc';
+      this.currentPage=1;
+      this.richiestaService.elencoAttributiOrdinati("numeroTicket","desc",this.pageSize).subscribe((data) => {
+        this.richieste = data.elenco.content;
+        this.pagineTotali=data.elenco.totalPages
+      })
+    } else if (this.numeroCaso==3){
+
+      this.ordinamentoNumeroTicket = 'asc';
+      
+      this.currentPage=1;
+      this.richiestaService.elencoAttributiOrdinati("dataCreazione","asc",this.pageSize).subscribe((data) => {
+        this.richieste = data.elenco.content;
+        this.pagineTotali=data.elenco.totalPages
+      })
+    } else if(this.numeroCaso==4){
+      this.ordinamentoNumeroTicket = 'desc';
+      this.currentPage=1;
+      this.richiestaService.elencoAttributiOrdinati("dataCreazione","desc",this.pageSize).subscribe((data) => {
+        this.richieste = data.elenco.content;
+        this.pagineTotali=data.elenco.totalPages
+      })
+    }
+}
 
 
 
