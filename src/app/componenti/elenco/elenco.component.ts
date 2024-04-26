@@ -21,7 +21,7 @@ export class ElencoComponent implements OnInit {
   showSpinner = true;
   
   richieste!: richiestaAttualeArr[];
-  
+  gianni:string="gianni";
   isDisabled: boolean = true; 
 
   applicativo!: Applicativo[];
